@@ -13,6 +13,7 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
 
     public CustomerService(CustomerRepository customerRepository) {
+
         this.customerRepository = customerRepository;
     }
 
@@ -22,25 +23,31 @@ public class CustomerService {
     }
 
     public Optional<Customer> findById(Long id) {
-        try {
-            Optional<Customer> customer = customerRepository.findById(id);
-            return customer;
-        } catch (IndexOutOfBoundsException ex) {
+        if (!customerRepository.existsById(id)) {
             throw new RecordNotFoundException();
         }
-
+        return customerRepository.findById(id);
     }
 
     public void save(Customer customer) {
+
         customerRepository.save(customer);
     }
 
     public void deleteById(Long id) {
-        try {
-            customerRepository.deleteById(id);
-        } catch (IndexOutOfBoundsException ex) {
+        if (!customerRepository.existsById(id)) {
             throw new RecordNotFoundException();
         }
+        customerRepository.deleteById(id);
+    }
 
+    public void updateCustomer(Long id, Customer updatedCustomer) {
+        if(!customerRepository.existsById(id)){
+            throw new RecordNotFoundException();
+        }
+        Customer customer = customerRepository.findById(id).get();
+        customer.setName(updatedCustomer.getName());
+        customerRepository.save(customer);
     }
 }
+

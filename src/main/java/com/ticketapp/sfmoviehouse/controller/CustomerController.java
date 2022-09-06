@@ -9,39 +9,39 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequestMapping(value = "/customers")
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping(value = "/customers")
-    public ResponseEntity getCustomers() {
-        Iterable<Customer> customers = customerService.findAll();
-        return ResponseEntity.ok(customers);
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
-    @GetMapping(value = "/customers/{id}")
-    public ResponseEntity getCustomer(@PathVariable Long id) {
-        Optional<Customer> customer = customerService.findById(id);
-        return ResponseEntity.ok(customer);
+    @GetMapping(value = "")
+    public ResponseEntity<Object>getCustomers() {
+        return ResponseEntity.ok().body(customerService.findAll());
     }
 
-    @PostMapping(value = "/customers")
-    public ResponseEntity addCustomer(@RequestBody Customer customer) {
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Object>getCustomer(@PathVariable Long id) {
+        return ResponseEntity.ok().body(customerService.findById(id));
+    }
+
+    @PostMapping(value = "")
+    public ResponseEntity<Object>addCustomer(@RequestBody Customer customer) {
         customerService.save(customer);
         return ResponseEntity.ok("added customer");
     }
-
-     @PutMapping(value = "/customers/{id}")
-    public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
-         Optional<Customer> customerToUpdate = customerService.findById(id);
-         customerService.save(customer);
-        return ResponseEntity.ok("updated customer");
-    }
-
-    @DeleteMapping(value = "/customers/{id}")
-    public ResponseEntity deleteCustomer(@PathVariable Long id) {
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity <Object>deleteCustomer(@PathVariable Long id) {
         customerService.deleteById(id);
         return ResponseEntity.ok("removed customer");
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Object> updateCustomer(@PathVariable Long id, @RequestBody Customer customer){
+        customerService.updateCustomer(id, customer);
+        return ResponseEntity.ok("updated customer");
+    }
 }

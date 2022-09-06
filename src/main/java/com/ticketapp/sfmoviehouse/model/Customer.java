@@ -13,21 +13,14 @@ public class Customer {
     private String name;
     //password;
     //role
-
     //one to many preferences;
     //one to many favorites;
     //avatar;
-    @OneToMany(mappedBy = "customer",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    private List<Ticket> tickets;
+    //ticketID
 
     public Customer() {
     }
-    public Customer(String name, List<Ticket> tickets) {
-        this.name = name;
-        this.tickets = tickets;
-    }
+
 
     public long getId() {
         return id;
@@ -43,13 +36,5 @@ public class Customer {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
     }
 }
