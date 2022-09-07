@@ -1,22 +1,48 @@
 package com.ticketapp.sfmoviehouse.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Date;
+import javax.persistence.*;
+import java.time.LocalDate;
+
 
 @Entity
-
+@Table(name = "tickets")
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ticketID;
-	private Date date;
+    private long id;
+
+    private LocalDate date;
     private String cinema;
 
-    //userID;
     //eventID;
     //movieID;
+    //customerID
 
+    public Ticket() {
+
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public String getCinema() {
+        return cinema;
+    }
+
+    public void setCinema(String cinema) {
+        this.cinema = cinema;
+    }
 }

@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping(value = "/customers")
 public class CustomerController {
@@ -24,7 +22,7 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Object>getCustomer(@PathVariable Long id) {
+    public ResponseEntity<Object>getCustomerById(@PathVariable Long id) {
         return ResponseEntity.ok().body(customerService.findById(id));
     }
 

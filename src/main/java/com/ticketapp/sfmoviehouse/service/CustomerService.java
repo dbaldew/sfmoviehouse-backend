@@ -13,7 +13,6 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
 
     public CustomerService(CustomerRepository customerRepository) {
-
         this.customerRepository = customerRepository;
     }
 
@@ -30,7 +29,6 @@ public class CustomerService {
     }
 
     public void save(Customer customer) {
-
         customerRepository.save(customer);
     }
 
