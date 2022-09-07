@@ -1,7 +1,7 @@
 package com.ticketapp.sfmoviehouse.model;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+
 
 
 @Entity
@@ -11,7 +11,8 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private LocalDate date;
+    private String date;
+    private String time;
     private String cinema;
 
     //eventID;
@@ -22,6 +23,13 @@ public class Ticket {
 
     }
 
+    public Ticket(long id, String date, String time, String cinema) {
+        this.id = id;
+        this.date = date;
+        this.time = time;
+        this.cinema = cinema;
+    }
+
     public long getId() {
         return id;
     }
@@ -30,12 +38,20 @@ public class Ticket {
         this.id = id;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getCinema() {

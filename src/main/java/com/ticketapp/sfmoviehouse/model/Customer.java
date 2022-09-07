@@ -1,7 +1,7 @@
 package com.ticketapp.sfmoviehouse.model;
 
 import javax.persistence.*;
-import java.util.List;
+
 
 @Entity
 @Table (name = "customer")
@@ -20,7 +20,10 @@ public class Customer {
 
     public Customer() {
     }
-
+    public Customer(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public long getId() {
         return id;
