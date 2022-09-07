@@ -4,11 +4,11 @@ import javax.persistence.*;
 
 
 @Entity
-@Table (name = "customer")
+@Table(name = "customers")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
     private String name;
     //password;
@@ -20,6 +20,7 @@ public class Customer {
 
     public Customer() {
     }
+
     public Customer(long id, String name) {
         this.id = id;
         this.name = name;

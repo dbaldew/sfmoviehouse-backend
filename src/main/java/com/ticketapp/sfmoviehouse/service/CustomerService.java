@@ -40,7 +40,7 @@ public class CustomerService {
     }
 
     public void updateCustomer(Long id, Customer updatedCustomer) {
-        if(!customerRepository.existsById(id)){
+        if (!customerRepository.existsById(id)) {
             throw new RecordNotFoundException();
         }
         Customer customer = customerRepository.findById(id).get();
