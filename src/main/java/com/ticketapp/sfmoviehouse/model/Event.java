@@ -1,7 +1,9 @@
 package com.ticketapp.sfmoviehouse.model;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
-import java.util.Date;
+
 
 @Entity
 @Table(name = "events")
@@ -10,20 +12,22 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long eventID;
-
     private String date;
     private String cinema;
+    private Long availableTickets;
 
     //movieID;
-    //availableTickets;
+
 
     public Event() {
     }
 
-    public Event(Long eventID, String date, String cinema) {
+
+    public Event(Long eventID, String date, String cinema, Long availableTickets) {
         this.eventID = eventID;
         this.date = date;
         this.cinema = cinema;
+        this.availableTickets = availableTickets;
     }
 
     public Long getEventID() {
@@ -48,5 +52,13 @@ public class Event {
 
     public void setCinema(String cinema) {
         this.cinema = cinema;
+    }
+
+    public long getAvailableTickets() {
+        return availableTickets;
+    }
+
+    public void setAvailableTickets(Long availableTickets) {
+        this.availableTickets = availableTickets;
     }
 }

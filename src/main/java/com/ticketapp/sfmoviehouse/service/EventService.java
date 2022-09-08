@@ -48,6 +48,7 @@ public class EventService {
         Event event = eventRepository.findById(id).get();
         event.setDate(updatedEvent.getDate());
         event.setCinema(updatedEvent.getCinema());
+        event.setAvailableTickets((updatedEvent.getAvailableTickets()));
         eventRepository.save(event);
     }
 }
