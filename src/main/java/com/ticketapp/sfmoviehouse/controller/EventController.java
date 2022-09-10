@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/events")
 public class EventController {
 
-    @Autowired
-    private EventService eventService;
 
+    private EventService eventService;
+    @Autowired
     public EventController(EventService eventService) {
         this.eventService = eventService;
     }

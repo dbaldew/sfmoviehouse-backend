@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping (value = "/movies")
 public class MovieController {
 
-    @Autowired
-    private MovieService movieService;
 
+    private MovieService movieService;
+    @Autowired
     public MovieController(MovieService movieService){
         this.movieService = movieService;
     }

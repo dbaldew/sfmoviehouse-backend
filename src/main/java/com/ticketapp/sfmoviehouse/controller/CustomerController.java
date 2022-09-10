@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/customers")
 public class CustomerController {
-    @Autowired
-    private CustomerService customerService;
 
+    private CustomerService customerService;
+    @Autowired
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }

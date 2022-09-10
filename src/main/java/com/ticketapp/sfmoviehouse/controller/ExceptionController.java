@@ -14,7 +14,4 @@ public class ExceptionController {
     public ResponseEntity <Object> exception (RecordNotFoundException exception){
         return ResponseEntity.notFound().build();
     }
-
-
-
 }

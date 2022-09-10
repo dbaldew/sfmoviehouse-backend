@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/tickets")
 public class TicketController {
 
-    @Autowired
-    private TicketService ticketService;
 
+    private TicketService ticketService;
+    @Autowired
     public TicketController(TicketService ticketService) {
         this.ticketService = ticketService;
     }
