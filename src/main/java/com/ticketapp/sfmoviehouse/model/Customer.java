@@ -13,10 +13,10 @@ public class Customer {
     private String name;
     //password;
     //role
-    //one to many preferences;
-    //one to many favorites;
-    //avatar;
-    //ticketID
+    //Preference preference;
+    //Avatar avatar;
+    //ArrayList<Favorite> favoriteList;
+    //ArrayList<Ticket> ticketList;
 
     public Customer() {
     }
