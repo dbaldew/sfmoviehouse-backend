@@ -2,13 +2,20 @@ package com.ticketapp.sfmoviehouse.service;
 
 import com.ticketapp.sfmoviehouse.dto.request.UserPostRequest;
 import com.ticketapp.sfmoviehouse.exception.BadRequestException;
+import com.ticketapp.sfmoviehouse.exception.InvalidPassWordException;
+import com.ticketapp.sfmoviehouse.exception.NotAuthorizedException;
 import com.ticketapp.sfmoviehouse.exception.UserNotFoundException;
+import com.ticketapp.sfmoviehouse.model.Authority;
 import com.ticketapp.sfmoviehouse.model.User;
 import com.ticketapp.sfmoviehouse.repository.UserRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 
 public class UserService {
 
@@ -20,6 +27,10 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    private String getCurrentUserName() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return ((UserDetails) authentication.getPrincipal()).getUsername();
+    }
 
     public Collection<User> getUsers() {
         return userRepository.findAll();
@@ -75,9 +86,84 @@ public class UserService {
         }
     }
 
+    public Set<Authority> getAuthorities(String username) {
+        Optional<User> userOptional = userRepository.findById(username);
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException(username);
+        }
+        else {
+            User user = userOptional.get();
+            return user.getAuthorities();
+        }
+    }
 
+    public void addAuthority(String username, String authorityString) {
+        Optional<User> userOptional = userRepository.findById(username);
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException(username);
+        }
+        else {
+            User user = userOptional.get();
+            user.addAuthority(authorityString);
+            userRepository.save(user);
+        }
+    }
 
+    public void removeAuthority(String username, String authorityString) {
+        Optional<User> userOptional = userRepository.findById(username);
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException(username);
+        }
+        else {
+            User user = userOptional.get();
+            user.removeAuthority(authorityString);
+            userRepository.save(user);
+        }
+    }
 
+    private boolean isValidPassword(String password) {
+        final int MIN_LENGTH = 8;
+        final int MIN_DIGITS = 1;
+        final int MIN_LOWER = 1;
+        final int MIN_UPPER = 1;
+        final int MIN_SPECIAL = 1;
+        final String SPECIAL_CHARS = "@#$%&*!()+=-_";
 
+        long countDigit = password.chars().filter(ch -> ch >= '0' && ch <= '9').count();
+        long countLower = password.chars().filter(ch -> ch >= 'a' && ch <= 'z').count();
+        long countUpper = password.chars().filter(ch -> ch >= 'A' && ch <= 'Z').count();
+        long countSpecial = password.chars().filter(ch -> SPECIAL_CHARS.indexOf(ch) >= 0).count();
+
+        boolean validPassword = true;
+        if (password.length() < MIN_LENGTH) validPassword = false;
+        if (countLower < MIN_LOWER) validPassword = false;
+        if (countUpper < MIN_UPPER) validPassword = false;
+        if (countDigit < MIN_DIGITS) validPassword = false;
+        if (countSpecial < MIN_SPECIAL) validPassword = false;
+
+        return validPassword;
+    }
+
+    public void setPassword(String username, String password) {
+        if (username.equals(getCurrentUserName())) {
+            if (isValidPassword(password)) {
+                Optional<User> userOptional = userRepository.findById(username);
+                if (userOptional.isPresent()) {
+                    User user = userOptional.get();
+                    user.setPassword(passwordEncoder.encode(password));
+                    userRepository.save(user);
+                }
+                else {
+                    throw new UserNotFoundException(username);
+                }
+            }
+            else {
+                throw new InvalidPassWordException();
+            }
+        }
+        else {
+            throw new NotAuthorizedException();
+        }
+    }
 
 }
