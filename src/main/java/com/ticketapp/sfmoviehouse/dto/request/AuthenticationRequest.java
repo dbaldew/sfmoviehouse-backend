@@ -8,7 +8,6 @@ import javax.validation.constraints.Size;
 public class AuthenticationRequest {
     @NotEmpty
     private String username;
-
     @Size(min=8)
     private String password;
 
