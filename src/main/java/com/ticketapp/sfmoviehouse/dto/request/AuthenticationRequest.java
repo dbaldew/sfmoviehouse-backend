@@ -1,5 +1,6 @@
 package com.ticketapp.sfmoviehouse.dto.request;
 
+import org.springframework.beans.factory.annotation.Required;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 

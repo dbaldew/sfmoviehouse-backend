@@ -17,8 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.sql.DataSource;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.PATCH;
+import static org.springframework.http.HttpMethod.*;
 
 @Configuration
 @EnableWebSecurity
@@ -29,8 +28,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private JwtRequestFilter jwtRequestFilter;
 
     @Autowired
-    WebSecurityConfiguration(DataSource dataSource) {
+    WebSecurityConfiguration(DataSource dataSource, JwtRequestFilter jwtRequestFilter) {
         this.dataSource = dataSource;
+        this.jwtRequestFilter = jwtRequestFilter;
     }
 
     @Autowired
@@ -39,7 +39,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username=?")
                 .authoritiesByUsernameQuery("SELECT username, authority FROM authorities AS a WHERE username=?");
-
     }
 
     @Bean
@@ -63,15 +62,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                //HTTP Basic authentication
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/secure").hasRole("ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers(PATCH, "/users/{^[\\w]$}/password").authenticated()
                 .antMatchers("/users/**").hasRole("ADMIN")
-                .antMatchers("/users_only").hasRole("USER")
-                .antMatchers(GET, "/all").permitAll()
+                .antMatchers(POST, "/authenticate").permitAll()
+                .antMatchers(GET, "/public").permitAll()
+                .anyRequest().denyAll()
                 .and()
                 .csrf().disable()
                 .formLogin().disable()

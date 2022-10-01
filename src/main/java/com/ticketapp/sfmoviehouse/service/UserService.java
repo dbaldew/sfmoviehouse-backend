@@ -8,20 +8,25 @@ import com.ticketapp.sfmoviehouse.exception.UserNotFoundException;
 import com.ticketapp.sfmoviehouse.model.Authority;
 import com.ticketapp.sfmoviehouse.model.User;
 import com.ticketapp.sfmoviehouse.repository.UserRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 
+@Service
 public class UserService {
 
-    private UserRepository userRepository;
+    private  UserRepository userRepository;
     PasswordEncoder passwordEncoder;
 
+    @Autowired
     public UserService (UserRepository userRepository, PasswordEncoder passwordEncoder ){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -38,6 +43,10 @@ public class UserService {
 
     public Optional<User> getUser(String username){
         return userRepository.findById(username);
+    }
+
+    public boolean userExists(String username) {
+        return userRepository.existsById(username);
     }
 
     public String createUser(UserPostRequest userPostRequest) {

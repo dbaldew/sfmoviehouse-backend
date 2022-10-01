@@ -11,7 +11,7 @@ import java.util.Set;
         @Id
         @Column(nullable = false, unique = true)
         private String username;
-        @Column(nullable = false)
+        @Column(nullable = false, length = 80)
         private String password;
         @Column(nullable = false)
         private boolean enabled = true;

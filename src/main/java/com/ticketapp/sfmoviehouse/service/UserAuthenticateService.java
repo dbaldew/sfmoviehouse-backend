@@ -2,7 +2,7 @@ package com.ticketapp.sfmoviehouse.service;
 
 import com.ticketapp.sfmoviehouse.dto.request.AuthenticationRequest;
 import com.ticketapp.sfmoviehouse.dto.response.AuthenticationResponse;
-import com.ticketapp.sfmoviehouse.security.JwtUtil;
+import com.ticketapp.sfmoviehouse.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,7 +10,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserAuthenticateService {
 
     @Autowired

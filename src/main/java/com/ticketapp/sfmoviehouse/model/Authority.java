@@ -1,13 +1,11 @@
 package com.ticketapp.sfmoviehouse.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "authorities")
+@IdClass(AuthorityKey.class)
+@Table(name = " authorities")
 public class Authority implements Serializable {
     @Id
     @Column(nullable = false)
