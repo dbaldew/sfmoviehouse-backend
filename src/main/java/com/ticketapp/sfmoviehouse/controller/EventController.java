@@ -20,6 +20,7 @@ public class EventController {
 
     @GetMapping(value = "")
     public ResponseEntity<Object> getEvents() {
+
         return ResponseEntity.ok().body(eventService.findAll());
     }
 
