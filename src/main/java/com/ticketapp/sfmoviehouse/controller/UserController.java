@@ -17,6 +17,11 @@ import java.util.Map;
 public class UserController {
 
     UserService userService;
+
+    public UserController (UserService userService){
+        this.userService = userService;
+    }
+
     @GetMapping(value = "")
     public ResponseEntity<Object> getUsers() {
         return ResponseEntity.ok().body(userService.getUsers());
