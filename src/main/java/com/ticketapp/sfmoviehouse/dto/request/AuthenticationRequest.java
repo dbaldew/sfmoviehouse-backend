@@ -1,14 +1,13 @@
 package com.ticketapp.sfmoviehouse.dto.request;
 
-import org.springframework.beans.factory.annotation.Required;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-
 
 public class AuthenticationRequest {
     @NotEmpty
     private String username;
-    @Size(min=8)
+    @NotEmpty
+    @Size(min=6, message = "password should have at least 6 characters")
     private String password;
 
     public AuthenticationRequest() {

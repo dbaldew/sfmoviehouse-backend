@@ -1,10 +1,7 @@
 package com.ticketapp.sfmoviehouse.service;
 
 import com.ticketapp.sfmoviehouse.dto.request.UserPostRequest;
-import com.ticketapp.sfmoviehouse.exception.BadRequestException;
-import com.ticketapp.sfmoviehouse.exception.InvalidPassWordException;
-import com.ticketapp.sfmoviehouse.exception.NotAuthorizedException;
-import com.ticketapp.sfmoviehouse.exception.UserNotFoundException;
+import com.ticketapp.sfmoviehouse.exception.*;
 import com.ticketapp.sfmoviehouse.model.Authority;
 import com.ticketapp.sfmoviehouse.model.User;
 import com.ticketapp.sfmoviehouse.repository.UserRepository;
@@ -42,11 +39,10 @@ public class UserService {
     }
 
     public Optional<User> getUser(String username){
+        if (!userRepository.existsById(username)) {
+            throw new RecordNotFoundException();
+        }
         return userRepository.findById(username);
-    }
-
-    public boolean userExists(String username) {
-        return userRepository.existsById(username);
     }
 
     public String createUser(UserPostRequest userPostRequest) {
@@ -62,7 +58,10 @@ public class UserService {
                 if (!s.startsWith("ROLE_")) {
                     s = "ROLE_" + s;
                 }
-                user.addAuthority(s);
+                s = s.toUpperCase();
+                if (!s.equals("ROLE_USER")) {
+                    user.addAuthority(s);
+                }
             }
 
             User newUser = userRepository.save(user);

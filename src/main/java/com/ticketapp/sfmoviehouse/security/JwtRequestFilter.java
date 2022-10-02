@@ -21,6 +21,7 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
+    //@Lazy annotation added to solve circular reference problem between JwtRequestFilter and WebSecurityConfiguration classes
     @Autowired
     @Lazy
     private UserDetailsService userDetailsService;
