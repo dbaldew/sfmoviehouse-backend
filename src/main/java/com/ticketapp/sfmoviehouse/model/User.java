@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-
     @Entity
     @Table(name = "users")
     public class User {
@@ -22,6 +21,8 @@ import java.util.Set;
                 orphanRemoval = true,
                 fetch = FetchType.EAGER)
         private Set<Authority> authorities = new HashSet<>();
+
+        public User(){}
 
         public String getUsername() {
             return username;

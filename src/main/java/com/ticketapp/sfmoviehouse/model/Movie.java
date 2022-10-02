@@ -1,7 +1,6 @@
 package com.ticketapp.sfmoviehouse.model;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table (name = "movies")
@@ -10,18 +9,13 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long movieID;
-
     private String title;
     private String year;
     private String category;
 
     //one to many Event
 
-
-    public Movie() {
-
-    }
-
+    public Movie(){}
     public Movie(Long movieID, String title, String year, String category) {
         this.movieID = movieID;
         this.title = title;

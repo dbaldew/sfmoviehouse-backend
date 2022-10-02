@@ -14,16 +14,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserAuthenticateService {
-
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Autowired
     private UserDetailsService userDetailsService;
-
     @Autowired
     JwtUtil jwtUtl;
-
     public AuthenticationResponse authenticateUser(AuthenticationRequest authenticationRequest) {
 
         String username = authenticationRequest.getUsername();

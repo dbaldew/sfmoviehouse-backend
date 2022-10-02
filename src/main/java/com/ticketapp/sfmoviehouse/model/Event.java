@@ -1,9 +1,6 @@
 package com.ticketapp.sfmoviehouse.model;
 
-import org.springframework.lang.Nullable;
-
 import javax.persistence.*;
-
 
 @Entity
 @Table(name = "events")
@@ -18,11 +15,7 @@ public class Event {
 
     //movieID;
 
-
-    public Event() {
-    }
-
-
+    public Event(){}
     public Event(Long eventID, String date, String cinema, Long availableTickets) {
         this.eventID = eventID;
         this.date = date;

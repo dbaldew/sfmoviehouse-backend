@@ -2,15 +2,12 @@ package com.ticketapp.sfmoviehouse.model;
 
 import javax.persistence.*;
 
-
-
 @Entity
 @Table (name = "tickets")
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private String date;
     private String time;
     private String cinema;
@@ -18,11 +15,7 @@ public class Ticket {
     //eventID;
     //movieID;
     //customerID
-
-    public Ticket() {
-
-    }
-
+    public Ticket(){}
     public Ticket(long id, String date, String time, String cinema) {
         this.id = id;
         this.date = date;

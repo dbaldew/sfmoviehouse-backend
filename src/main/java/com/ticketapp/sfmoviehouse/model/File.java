@@ -15,16 +15,12 @@ public class File {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-
     private String name;
-
     private String type;
-
     @Lob
     private byte[] data;
 
     public File(){};
-
     public File(String name, String type, byte[] data) {
         this.name = name;
         this.type = type;

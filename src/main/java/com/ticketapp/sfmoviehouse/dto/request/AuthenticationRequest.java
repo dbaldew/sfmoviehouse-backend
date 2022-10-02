@@ -10,8 +10,7 @@ public class AuthenticationRequest {
     @Size(min=6, message = "password should have at least 6 characters")
     private String password;
 
-    public AuthenticationRequest() {
-    }
+    public AuthenticationRequest(){}
     public AuthenticationRequest(String username, String password) {
         this.username = username;
         this.password = password;

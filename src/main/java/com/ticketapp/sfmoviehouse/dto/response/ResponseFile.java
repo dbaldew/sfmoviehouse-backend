@@ -1,7 +1,6 @@
 package com.ticketapp.sfmoviehouse.dto.response;
 
 public class ResponseFile {
-
         private String name;
         private String url;
         private String type;

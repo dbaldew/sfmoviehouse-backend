@@ -12,9 +12,7 @@ import java.util.stream.Stream;
 
 @Service
 public class FileService {
-
     private FileRepository fileRepository;
-
     @Autowired
     public FileService (FileRepository fileRepository){
         this.fileRepository = fileRepository;
