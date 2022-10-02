@@ -1,6 +1,5 @@
 package com.ticketapp.sfmoviehouse.controller;
 
-import com.ticketapp.sfmoviehouse.model.Customer;
 import com.ticketapp.sfmoviehouse.model.Event;
 import com.ticketapp.sfmoviehouse.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,9 +1,7 @@
 package com.ticketapp.sfmoviehouse.service;
 
 import com.ticketapp.sfmoviehouse.exception.RecordNotFoundException;
-import com.ticketapp.sfmoviehouse.model.Customer;
 import com.ticketapp.sfmoviehouse.model.Event;
-import com.ticketapp.sfmoviehouse.model.Movie;
 import com.ticketapp.sfmoviehouse.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
