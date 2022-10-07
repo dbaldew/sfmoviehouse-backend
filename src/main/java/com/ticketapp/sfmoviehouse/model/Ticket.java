@@ -4,23 +4,43 @@ import javax.persistence.*;
 
 @Entity
 @Table (name = "tickets")
-public class Ticket {
+public class Ticket{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String date;
     private String time;
     private String cinema;
+    @ManyToOne(cascade=CascadeType.ALL)
+    private Movie movie;
+    @ManyToOne(cascade=CascadeType.ALL)
+    private User user;
 
-    //eventID;
-    //movieID;
-    //customerID
+
     public Ticket(){}
-    public Ticket(long id, String date, String time, String cinema) {
+    public Ticket(long id, String date, String time, String cinema, Movie movie, User user) {
         this.id = id;
         this.date = date;
         this.time = time;
         this.cinema = cinema;
+        this.movie = movie;
+        this.user=user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 
     public long getId() {

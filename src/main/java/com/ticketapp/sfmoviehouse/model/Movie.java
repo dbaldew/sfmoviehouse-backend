@@ -1,6 +1,8 @@
 package com.ticketapp.sfmoviehouse.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table (name = "movies")
@@ -12,8 +14,6 @@ public class Movie {
     private String title;
     private String year;
     private String category;
-
-    //one to many Event
 
     public Movie(){}
     public Movie(Long movieID, String title, String year, String category) {

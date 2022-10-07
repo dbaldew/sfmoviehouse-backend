@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @IdClass(AuthorityKey.class)
-@Table(name = " authorities")
+@Table(name = "authorities")
 public class Authority implements Serializable {
     @Id
     @Column(nullable = false)

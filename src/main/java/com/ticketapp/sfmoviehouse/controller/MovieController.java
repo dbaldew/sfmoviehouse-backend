@@ -1,6 +1,5 @@
 package com.ticketapp.sfmoviehouse.controller;
 
-
 import com.ticketapp.sfmoviehouse.model.Movie;
 import com.ticketapp.sfmoviehouse.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping (value = "/movies")
 public class MovieController {
-
 
     private MovieService movieService;
     @Autowired

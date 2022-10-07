@@ -22,7 +22,15 @@ import java.util.Set;
                 fetch = FetchType.EAGER)
         private Set<Authority> authorities = new HashSet<>();
 
+
         public User(){}
+
+        public User(String username, String password, boolean enabled, Set<Authority> authorities) {
+            this.username = username;
+            this.password = password;
+            this.enabled = enabled;
+            this.authorities = authorities;
+        }
 
         public String getUsername() {
             return username;
