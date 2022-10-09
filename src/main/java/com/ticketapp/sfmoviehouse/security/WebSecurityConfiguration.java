@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,11 +20,10 @@ import static org.springframework.http.HttpMethod.*;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private DataSource dataSource;
-    private JwtRequestFilter jwtRequestFilter;
+    private final DataSource dataSource;
+    private final JwtRequestFilter jwtRequestFilter;
 
     @Autowired
     WebSecurityConfiguration(DataSource dataSource, JwtRequestFilter jwtRequestFilter) {
@@ -64,19 +62,23 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic()
                 .and()
+                .csrf().disable()
+                .formLogin().disable()
+                .cors()
+                .and()
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers(POST, "/users/signup").permitAll()
+                .antMatchers(POST, "/authenticate").permitAll()
+                .antMatchers("/user/**").authenticated()
+                .antMatchers(GET, "/public").permitAll()
                 .antMatchers("/users/**").hasAnyRole("ADMIN","USER")
                 .antMatchers("/events/**").hasAnyRole("ADMIN","USER")
                 .antMatchers("/movies/**").hasAnyRole("ADMIN","USER")
                 .antMatchers("/tickets/**").hasAnyRole("ADMIN","USER")
                 .antMatchers("/files/**").hasAnyRole("ADMIN","USER")
-                .antMatchers(POST, "/authenticate").permitAll()
-                .antMatchers(GET, "/public").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().denyAll()
                 .and()
-                .csrf().disable()
-                .formLogin().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

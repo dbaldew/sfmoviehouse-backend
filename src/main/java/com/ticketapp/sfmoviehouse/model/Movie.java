@@ -14,13 +14,21 @@ public class Movie {
     private String title;
     private String year;
     private String category;
+    @OneToMany(
+            targetEntity = Ticket.class,
+            mappedBy = "movie",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
+    private Set<Ticket> tickets = new HashSet<>();
 
     public Movie(){}
-    public Movie(Long movieID, String title, String year, String category) {
+    public Movie(Long movieID, String title, String year, String category, Set<Ticket> tickets) {
         this.movieID = movieID;
         this.title = title;
         this.year = year;
         this.category = category;
+        this.tickets= tickets;
     }
 
     public Long getMovieID() {
@@ -53,6 +61,14 @@ public class Movie {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public Set<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
     }
 }
 
