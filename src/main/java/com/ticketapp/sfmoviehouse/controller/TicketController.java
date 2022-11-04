@@ -1,25 +1,29 @@
 package com.ticketapp.sfmoviehouse.controller;
-
-import com.ticketapp.sfmoviehouse.model.Ticket;
+import com.ticketapp.sfmoviehouse.entity.Ticket;
 import com.ticketapp.sfmoviehouse.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/tickets")
 public class TicketController {
 
 
-    private TicketService ticketService;
+
+    private final TicketService ticketService;
     @Autowired
     public TicketController(TicketService ticketService) {
         this.ticketService = ticketService;
     }
 
     @GetMapping("")
-    public ResponseEntity <Object>getTickets() {
-        return ResponseEntity.ok().body(ticketService.findAll());
+    public ResponseEntity <Iterable<Ticket>>getTickets() {
+        Iterable<Ticket> tickets;
+        tickets = ticketService.findAll();
+        return ResponseEntity.ok().body(tickets);
 
     }
     @GetMapping(value = "{id}")

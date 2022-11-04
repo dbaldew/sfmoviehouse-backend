@@ -1,6 +1,6 @@
 package com.ticketapp.sfmoviehouse.repository;
 
-import com.ticketapp.sfmoviehouse.model.Ticket;
+import com.ticketapp.sfmoviehouse.entity.Ticket;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
