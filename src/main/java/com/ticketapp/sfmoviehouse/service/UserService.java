@@ -1,9 +1,9 @@
 package com.ticketapp.sfmoviehouse.service;
 
-import com.ticketapp.sfmoviehouse.dto.request.UserPostRequest;
+import com.ticketapp.sfmoviehouse.dto.UserPostRequest;
 import com.ticketapp.sfmoviehouse.exception.*;
-import com.ticketapp.sfmoviehouse.model.Authority;
-import com.ticketapp.sfmoviehouse.model.User;
+import com.ticketapp.sfmoviehouse.entity.Authority;
+import com.ticketapp.sfmoviehouse.entity.User;
 import com.ticketapp.sfmoviehouse.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

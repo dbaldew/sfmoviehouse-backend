@@ -1,6 +1,6 @@
 package com.ticketapp.sfmoviehouse.repository;
 
-import com.ticketapp.sfmoviehouse.model.User;
+import com.ticketapp.sfmoviehouse.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

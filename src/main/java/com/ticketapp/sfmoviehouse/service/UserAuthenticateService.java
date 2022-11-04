@@ -1,7 +1,7 @@
 package com.ticketapp.sfmoviehouse.service;
 
-import com.ticketapp.sfmoviehouse.dto.request.AuthenticationRequest;
-import com.ticketapp.sfmoviehouse.dto.response.AuthenticationResponse;
+import com.ticketapp.sfmoviehouse.dto.AuthenticationRequest;
+import com.ticketapp.sfmoviehouse.dto.AuthenticationResponse;
 import com.ticketapp.sfmoviehouse.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -1,8 +1,8 @@
 package com.ticketapp.sfmoviehouse.controller;
 
-import com.ticketapp.sfmoviehouse.dto.request.UserPostRequest;
+import com.ticketapp.sfmoviehouse.dto.UserPostRequest;
 import com.ticketapp.sfmoviehouse.exception.BadRequestException;
-import com.ticketapp.sfmoviehouse.model.User;
+import com.ticketapp.sfmoviehouse.entity.User;
 import com.ticketapp.sfmoviehouse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
