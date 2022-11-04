@@ -1,4 +1,4 @@
-package com.ticketapp.sfmoviehouse.dto.response;
+package com.ticketapp.sfmoviehouse.dto;
 
 public class AuthenticationResponse {
     private final String jwt;

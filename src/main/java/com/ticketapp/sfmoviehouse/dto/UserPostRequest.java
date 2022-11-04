@@ -1,4 +1,4 @@
-package com.ticketapp.sfmoviehouse.dto.request;
+package com.ticketapp.sfmoviehouse.dto;
 
 import java.util.Set;
 

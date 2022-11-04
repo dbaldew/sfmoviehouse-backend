@@ -1,4 +1,4 @@
-package com.ticketapp.sfmoviehouse.model;
+package com.ticketapp.sfmoviehouse.entity;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,6 +14,9 @@ public class Movie {
     private String title;
     private String year;
     private String category;
+    private String header;
+    private String description;
+
     @OneToMany(
             targetEntity = Ticket.class,
             mappedBy = "movie",
@@ -23,11 +26,13 @@ public class Movie {
     private Set<Ticket> tickets = new HashSet<>();
 
     public Movie(){}
-    public Movie(Long movieID, String title, String year, String category, Set<Ticket> tickets) {
+    public Movie(Long movieID, String title, String year, String category, String header, String description, Set<Ticket> tickets) {
         this.movieID = movieID;
         this.title = title;
         this.year = year;
         this.category = category;
+        this.header = header;
+        this.description = description;
         this.tickets= tickets;
     }
 
@@ -61,6 +66,22 @@ public class Movie {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Set<Ticket> getTickets() {

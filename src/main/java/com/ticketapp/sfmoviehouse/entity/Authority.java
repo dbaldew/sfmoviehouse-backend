@@ -1,4 +1,4 @@
-package com.ticketapp.sfmoviehouse.model;
+package com.ticketapp.sfmoviehouse.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;

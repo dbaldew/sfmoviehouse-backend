@@ -1,4 +1,4 @@
-package com.ticketapp.sfmoviehouse.model;
+package com.ticketapp.sfmoviehouse.entity;
 import java.io.Serializable;
 
 public class AuthorityKey implements Serializable {

@@ -1,4 +1,4 @@
-package com.ticketapp.sfmoviehouse.dto.request;
+package com.ticketapp.sfmoviehouse.dto;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
