@@ -1,10 +1,11 @@
 package com.ticketapp.sfmoviehouse.repository;
 
-import com.ticketapp.sfmoviehouse.model.Movie;
+import com.ticketapp.sfmoviehouse.entity.Movie;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MovieRepository extends CrudRepository <Movie, Long> {
+public interface MovieRepository extends JpaRepository<Movie, Long> {
 
 }

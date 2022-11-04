@@ -1,45 +1,58 @@
 package com.ticketapp.sfmoviehouse.controller;
 
-import com.ticketapp.sfmoviehouse.model.Movie;
+import com.ticketapp.sfmoviehouse.dto.MovieDTO;
+import com.ticketapp.sfmoviehouse.entity.Movie;
 import com.ticketapp.sfmoviehouse.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping (value = "/movies")
 public class MovieController {
 
-    private MovieService movieService;
+    private final MovieService movieService;
     @Autowired
     public MovieController(MovieService movieService){
         this.movieService = movieService;
     }
 
     @GetMapping(value = "")
-    public ResponseEntity <Object>getMovie() {
-        return ResponseEntity.ok().body(movieService.findAll());
+    public ResponseEntity <List<MovieDTO>> getMovies() {
+        var movies = movieService.findAll()
+                .stream().map(MovieDTO::fromMovie)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(movies);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Object>getMovieById(@PathVariable Long id){
-        return ResponseEntity.ok().body(movieService.findById(id));
+    public ResponseEntity<MovieDTO>getMovieById(@PathVariable Long id){
+        var movie = MovieDTO.fromMovie(movieService.findById(id));
+        return ResponseEntity.ok().body(movie);
     }
     @PostMapping(value = "")
-    public ResponseEntity<Object>addMovie(@RequestBody Movie movie) {
-        movieService.save(movie);
-        return ResponseEntity.ok("added movie");
+    public ResponseEntity<Object>addMovie(@RequestBody MovieDTO dto) {
+        Movie newMovie = movieService.save(dto.toMovie());
+        Long id = newMovie.getMovieID();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(id).toUri();
+        return ResponseEntity.created(location).build();
     }
     @DeleteMapping(value = "/{id}")
     public ResponseEntity <Object> deleteMovie(@PathVariable Long id) {
         movieService.deleteById(id);
-        return ResponseEntity.ok("removed movie");
+        return ResponseEntity.ok("removed movie ");
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Object> updateMovie(@PathVariable Long id, @RequestBody Movie movie){
-        movieService.updateMovie(id, movie);
-        return ResponseEntity.ok("updated movie");
+    public ResponseEntity<Object> updateMovie(@PathVariable Long id, @RequestBody MovieDTO dto){
+        movieService.updateMovie(id, dto.toMovie());
+        return ResponseEntity.noContent().build();
     }
 
 }
