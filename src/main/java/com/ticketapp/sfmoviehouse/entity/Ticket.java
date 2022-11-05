@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Ticket{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long ticketID;
     private String date;
     private String time;
     private String cinema;
@@ -21,7 +21,7 @@ public class Ticket{
 
     public Ticket(){}
     public Ticket(long id, String date, String time, String cinema, Movie movie, User user) {
-        this.id = id;
+        this.ticketID = id;
         this.date = date;
         this.time = time;
         this.cinema = cinema;
@@ -29,28 +29,12 @@ public class Ticket{
         this.user=user;
     }
 
-    public User getUser() {
-        return user;
+    public long getTicketID() {
+        return ticketID;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public void setTicketID(long ticketID) {
+        this.ticketID = ticketID;
     }
 
     public String getDate() {
@@ -75,5 +59,21 @@ public class Ticket{
 
     public void setCinema(String cinema) {
         this.cinema = cinema;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

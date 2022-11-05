@@ -2,12 +2,12 @@ package com.ticketapp.sfmoviehouse.dto;
 
 import java.util.Set;
 
-public class UserPostRequest {
+public class UserDTO {
         private String username;
         private String password;
         private Set<String> authorities;
 
-    public UserPostRequest(){}
+    public UserDTO(){}
 
     public String getUsername() {
         return username;

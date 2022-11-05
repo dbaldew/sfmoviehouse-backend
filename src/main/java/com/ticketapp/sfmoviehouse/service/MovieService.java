@@ -24,10 +24,10 @@ public class MovieService {
 
     public Movie findById(long id) {
         Optional<Movie> movieOptional = movieRepository.findById(id);
-        if (movieOptional.isPresent()) {
-            return movieOptional.get();
-        } else {
+        if (movieOptional.isEmpty()) {
             throw new RecordNotFoundException();
+        } else {
+            return movieOptional.get();
         }
     }
 
@@ -36,23 +36,24 @@ public class MovieService {
     }
 
     public void deleteById(Long id) {
-        if (!movieRepository.existsById(id)) {
+        Optional<Movie> movieOptional = movieRepository.findById(id);
+        if (movieOptional.isEmpty()) {
             throw new RecordNotFoundException();
+        } else {
+            movieRepository.deleteById(id);
         }
-        movieRepository.deleteById(id);
     }
 
     public void updateMovie(Long id, Movie updatedMovie) {
-
         Optional<Movie> movieOptional = movieRepository.findById(id);
-        if (movieOptional.isPresent()) {
+        if (movieOptional.isEmpty()) {
+            throw new RecordNotFoundException();
+        } else  {
             Movie movie = movieRepository.findById(id).get();
             movie.setTitle(updatedMovie.getTitle());
             movie.setYear(updatedMovie.getYear());
             movie.setCategory(updatedMovie.getCategory());
             movieRepository.save(movie);
-        } else {
-            throw new RecordNotFoundException();
         }
     }
 }

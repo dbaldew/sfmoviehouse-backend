@@ -1,6 +1,6 @@
 package com.ticketapp.sfmoviehouse.controller;
 
-import com.ticketapp.sfmoviehouse.dto.UserPostRequest;
+import com.ticketapp.sfmoviehouse.dto.UserDTO;
 import com.ticketapp.sfmoviehouse.exception.BadRequestException;
 import com.ticketapp.sfmoviehouse.entity.User;
 import com.ticketapp.sfmoviehouse.service.UserService;
@@ -33,9 +33,9 @@ public class UserController {
     }
 
     @PostMapping(value = "/signup")
-    public ResponseEntity<Object> createUser(@RequestBody UserPostRequest userPostRequest) {
+    public ResponseEntity<Object> createUser(@RequestBody UserDTO userDTO) {
 
-        String newUsername = userService.createUser(userPostRequest);
+        String newUsername = userService.createUser(userDTO);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}")
                 .buildAndExpand(newUsername).toUri();

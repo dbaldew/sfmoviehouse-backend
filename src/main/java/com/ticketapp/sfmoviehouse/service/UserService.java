@@ -1,6 +1,6 @@
 package com.ticketapp.sfmoviehouse.service;
 
-import com.ticketapp.sfmoviehouse.dto.UserPostRequest;
+import com.ticketapp.sfmoviehouse.dto.UserDTO;
 import com.ticketapp.sfmoviehouse.exception.*;
 import com.ticketapp.sfmoviehouse.entity.Authority;
 import com.ticketapp.sfmoviehouse.entity.User;
@@ -43,12 +43,12 @@ public class UserService {
         return userRepository.findById(username);
     }
 
-    public String createUser(UserPostRequest userPostRequest) {
+    public String createUser(UserDTO userDTO) {
         try {
-            String encryptedPassword = passwordEncoder.encode(userPostRequest.getPassword());
+            String encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
 
             User user = new User();
-            user.setUsername(userPostRequest.getUsername());
+            user.setUsername(userDTO.getUsername());
             user.setPassword(encryptedPassword);
             user.setEnabled(true);
             user.addAuthority("ROLE_USER");

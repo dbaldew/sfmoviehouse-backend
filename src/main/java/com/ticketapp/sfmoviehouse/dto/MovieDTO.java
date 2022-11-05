@@ -73,14 +73,14 @@ public class MovieDTO {
     }
 
     public static MovieDTO fromMovie (Movie movie){
-        MovieDTO dto = new MovieDTO();
-        dto.movieID = movie.getMovieID();
-        dto.title = movie.getTitle();
-        dto.year = movie.getYear();
-        dto.category = movie.getCategory();
-        dto.header = movie.getHeader();
-        dto.description = movie.getDescription();
-        return dto;
+        MovieDTO movieDTO = new MovieDTO();
+        movieDTO.movieID = movie.getMovieID();
+        movieDTO.title = movie.getTitle();
+        movieDTO.year = movie.getYear();
+        movieDTO.category = movie.getCategory();
+        movieDTO.header = movie.getHeader();
+        movieDTO.description = movie.getDescription();
+        return movieDTO;
     }
     public Movie toMovie (){
         var movie = new Movie();

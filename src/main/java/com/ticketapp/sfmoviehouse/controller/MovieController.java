@@ -23,7 +23,7 @@ public class MovieController {
     }
 
     @GetMapping(value = "")
-    public ResponseEntity <List<MovieDTO>> getMovies() {
+    public ResponseEntity <List<MovieDTO>> getAllMovies() {
         var movies = movieService.findAll()
                 .stream().map(MovieDTO::fromMovie)
                 .collect(Collectors.toList());
@@ -36,8 +36,8 @@ public class MovieController {
         return ResponseEntity.ok().body(movie);
     }
     @PostMapping(value = "")
-    public ResponseEntity<Object>addMovie(@RequestBody MovieDTO dto) {
-        Movie newMovie = movieService.save(dto.toMovie());
+    public ResponseEntity<Object>addMovie(@RequestBody MovieDTO movieDTO) {
+        Movie newMovie = movieService.save(movieDTO.toMovie());
         Long id = newMovie.getMovieID();
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(id).toUri();
@@ -50,8 +50,8 @@ public class MovieController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Object> updateMovie(@PathVariable Long id, @RequestBody MovieDTO dto){
-        movieService.updateMovie(id, dto.toMovie());
+    public ResponseEntity<Object> updateMovie(@PathVariable Long id, @RequestBody MovieDTO movieDTO){
+        movieService.updateMovie(id, movieDTO.toMovie());
         return ResponseEntity.noContent().build();
     }
 

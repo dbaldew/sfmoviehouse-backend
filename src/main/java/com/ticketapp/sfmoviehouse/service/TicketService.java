@@ -22,38 +22,45 @@ public class TicketService {
         this.userRepository = userRepository;
     }
 
-    public Iterable<Ticket> findAll() {
-        Iterable<Ticket> ticketList = ticketRepository.findAll();
+    public List<Ticket> findAll() {
+        List<Ticket> ticketList = ticketRepository.findAll();
         return ticketList;
     }
 
-    public Optional<Ticket> findById(Long id) {
-        if (!ticketRepository.existsById(id)) {
+    public Ticket findById(Long id) {
+        Optional<Ticket> ticketOptional = ticketRepository.findById(id);
+        if (ticketOptional.isEmpty()) {
             throw new RecordNotFoundException();
+        }else {
+            return ticketOptional.get();
         }
-        return ticketRepository.findById(id);
     }
 
-    public void save(Ticket ticket) {
-        ticketRepository.save(ticket);
+    public Ticket save(Ticket ticket) {
+        return ticketRepository.save(ticket);
     }
 
     public void deleteById(Long id) {
-        if (!ticketRepository.existsById(id)) {
+        Optional<Ticket> ticketOptional = ticketRepository.findById(id);
+        if (ticketOptional.isEmpty()) {
             throw new RecordNotFoundException();
+        }else {
+            ticketRepository.deleteById(id);
         }
-        ticketRepository.deleteById(id);
     }
 
     public void updateTicket(Long id, Ticket updatedTicket) {
-        if (!ticketRepository.existsById(id)) {
+        Optional<Ticket> ticketOptional = ticketRepository.findById(id);
+        if (ticketOptional.isEmpty()) {
             throw new RecordNotFoundException();
+        }else {
+            Ticket ticket = ticketRepository.findById(id).get();
+            ticket.setDate(updatedTicket.getDate());
+            ticket.setTime(updatedTicket.getTime());
+            ticket.setCinema(updatedTicket.getCinema());
+            ticket.setMovie(updatedTicket.getMovie());
+            ticket.setUser(updatedTicket.getUser());
+            ticketRepository.save(ticket);
         }
-        Ticket ticket = ticketRepository.findById(id).get();
-        ticket.setDate(updatedTicket.getDate());
-        ticket.setCinema(updatedTicket.getCinema());
-        ticketRepository.save(ticket);
     }
-
-
 }
