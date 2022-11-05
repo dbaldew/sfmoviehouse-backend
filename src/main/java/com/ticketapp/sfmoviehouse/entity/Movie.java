@@ -17,12 +17,9 @@ public class Movie {
     private String header;
     private String description;
 
-    @OneToMany(
-            targetEntity = Ticket.class,
-            mappedBy = "movie",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.EAGER)
+    //////////////////////////////////////////
+
+
     private Set<Ticket> tickets = new HashSet<>();
 
     public Movie(){}

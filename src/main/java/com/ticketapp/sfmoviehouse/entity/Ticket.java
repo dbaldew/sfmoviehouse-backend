@@ -11,6 +11,9 @@ public class Ticket{
     private String date;
     private String time;
     private String cinema;
+
+    //////////////////////////////////////////
+
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "movieID")
     private Movie movie;

@@ -2,6 +2,7 @@ package com.ticketapp.sfmoviehouse.entity;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,18 +23,15 @@ public class User {
             fetch = FetchType.EAGER)
     private Set<Authority> authorities = new HashSet<>();
 
-    @OneToMany(
-            targetEntity = Ticket.class,
-            mappedBy = "user",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.EAGER)
-    private Set<Ticket> tickets = new HashSet<>();
+    //////////////////////////////////////////////////////
+
+
+    private List<Ticket> tickets;
 
     public User() {
     }
 
-    public User(String username, String password, boolean enabled, Set<Authority> authorities, Set<Ticket> tickets) {
+    public User(String username, String password, boolean enabled, Set<Authority> authorities, List<Ticket> tickets) {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
@@ -89,11 +87,11 @@ public class User {
         this.authorities.removeIf(authority -> authority.getAuthority().equalsIgnoreCase(authorityString));
     }
 
-    public Set<Ticket> getTickets() {
+    public List<Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(Set<Ticket> tickets) {
+    public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
     }
 }
