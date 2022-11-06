@@ -9,6 +9,7 @@ public class TicketDTO {
     public String time;
     public String cinema;
     public Movie movie;
+
     public User user;
 
     public TicketDTO() {
