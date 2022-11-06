@@ -1,37 +1,37 @@
 package com.ticketapp.sfmoviehouse.entity;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table (name = "movies")
 public class Movie {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long movieID;
     private String title;
     private String year;
     private String category;
-    private String header;
+    private String summary;
     private String description;
 
     //////////////////////////////////////////
+    @OneToMany(mappedBy = "movie")
+    private List<Ticket> tickets = new ArrayList<>();
 
-
-    private Set<Ticket> tickets = new HashSet<>();
-
+    //////////////////////////////////////////
     public Movie(){}
-    public Movie(Long movieID, String title, String year, String category, String header, String description, Set<Ticket> tickets) {
+    public Movie(Long movieID, String title, String year, String category, String header, String description, List<Ticket> tickets) {
         this.movieID = movieID;
         this.title = title;
         this.year = year;
         this.category = category;
-        this.header = header;
+        this.summary = header;
         this.description = description;
         this.tickets= tickets;
     }
+    ////////////////////////////////////////////
 
     public Long getMovieID() {
         return movieID;
@@ -66,11 +66,11 @@ public class Movie {
     }
 
     public String getHeader() {
-        return header;
+        return summary;
     }
 
     public void setHeader(String header) {
-        this.header = header;
+        this.summary = header;
     }
 
     public String getDescription() {
@@ -81,11 +81,11 @@ public class Movie {
         this.description = description;
     }
 
-    public Set<Ticket> getTickets() {
+    public List<Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(Set<Ticket> tickets) {
+    public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
     }
 }

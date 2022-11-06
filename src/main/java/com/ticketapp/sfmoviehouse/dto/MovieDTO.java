@@ -1,75 +1,20 @@
 package com.ticketapp.sfmoviehouse.dto;
 
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.ticketapp.sfmoviehouse.entity.Movie;
+import com.ticketapp.sfmoviehouse.entity.Ticket;
+
+import java.util.List;
 
 public class MovieDTO {
-    private Long movieID;
-    @JsonIncludeProperties("id")
-    private String title;
-    private String year;
-    private String category;
-    private String header;
-    private String description;
+    public Long movieID;
+    public String title;
+    public String year;
+    public String category;
+    public String summary;
+    public String description;
+    public List<Ticket>tickets;
 
     public MovieDTO() {
-    }
-
-    public MovieDTO(Long movieID, String title, String year, String category, String header, String description) {
-        this.movieID = movieID;
-        this.title = title;
-        this.year = year;
-        this.category = category;
-        this.header = header;
-        this.description = description;
-    }
-
-    public Long getMovieID() {
-        return movieID;
-    }
-
-    public void setMovieID(Long movieID) {
-        this.movieID = movieID;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getHeader() {
-        return header;
-    }
-
-    public void setHeader(String header) {
-        this.header = header;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public static MovieDTO fromMovie (Movie movie){
@@ -78,8 +23,9 @@ public class MovieDTO {
         movieDTO.title = movie.getTitle();
         movieDTO.year = movie.getYear();
         movieDTO.category = movie.getCategory();
-        movieDTO.header = movie.getHeader();
+        movieDTO.summary = movie.getHeader();
         movieDTO.description = movie.getDescription();
+        movieDTO.tickets = movie.getTickets();
         return movieDTO;
     }
     public Movie toMovie (){
@@ -87,8 +33,9 @@ public class MovieDTO {
         movie.setTitle(title);
         movie.setYear(year);
         movie.setCategory(category);
-        movie.setHeader(header);
+        movie.setHeader(summary);
         movie.setDescription(description);
+        movie.setTickets(tickets);
         return movie;
     }
 }

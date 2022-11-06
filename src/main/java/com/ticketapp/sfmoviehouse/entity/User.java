@@ -1,6 +1,7 @@
 package com.ticketapp.sfmoviehouse.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,10 +25,10 @@ public class User {
     private Set<Authority> authorities = new HashSet<>();
 
     //////////////////////////////////////////////////////
+    @OneToMany(mappedBy = "user")
+    private List<Ticket> tickets = new ArrayList<>();
 
-
-    private List<Ticket> tickets;
-
+    /////////////////////////////////////////////////////
     public User() {
     }
 

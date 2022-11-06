@@ -21,6 +21,7 @@ public class Ticket{
     @JoinColumn(name = "username")
     private User user;
 
+    //////////////////////////////////////////
 
     public Ticket(){}
     public Ticket(long id, String date, String time, String cinema, Movie movie, User user) {
