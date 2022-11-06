@@ -49,10 +49,13 @@ public class MovieService {
         if (movieOptional.isEmpty()) {
             throw new RecordNotFoundException();
         } else  {
-            Movie movie = movieRepository.findById(id).get();
+            Movie movie = movieRepository.findById(id).orElseThrow();
             movie.setTitle(updatedMovie.getTitle());
             movie.setYear(updatedMovie.getYear());
             movie.setCategory(updatedMovie.getCategory());
+            movie.setSummary(updatedMovie.getSummary());
+            movie.setDescription(updatedMovie.getDescription());
+            movie.setTickets(updatedMovie.getTickets());
             movieRepository.save(movie);
         }
     }

@@ -23,7 +23,7 @@ public class MovieDTO {
         movieDTO.title = movie.getTitle();
         movieDTO.year = movie.getYear();
         movieDTO.category = movie.getCategory();
-        movieDTO.summary = movie.getHeader();
+        movieDTO.summary = movie.getSummary();
         movieDTO.description = movie.getDescription();
         movieDTO.tickets = movie.getTickets();
         return movieDTO;
@@ -33,7 +33,7 @@ public class MovieDTO {
         movie.setTitle(title);
         movie.setYear(year);
         movie.setCategory(category);
-        movie.setHeader(summary);
+        movie.setSummary(summary);
         movie.setDescription(description);
         movie.setTickets(tickets);
         return movie;

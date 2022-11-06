@@ -30,7 +30,7 @@ public class MovieController {
         return ResponseEntity.ok().body(movies);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "{id}")
     public ResponseEntity<MovieDTO>getMovieById(@PathVariable Long id){
         var movie = MovieDTO.fromMovie(movieService.findById(id));
         return ResponseEntity.ok().body(movie);
@@ -43,15 +43,16 @@ public class MovieController {
                 .buildAndExpand(id).toUri();
         return ResponseEntity.created(location).build();
     }
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "{id}")
     public ResponseEntity <Object> deleteMovie(@PathVariable Long id) {
         movieService.deleteById(id);
         return ResponseEntity.ok("removed movie ");
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "{id}")
     public ResponseEntity<Object> updateMovie(@PathVariable Long id, @RequestBody MovieDTO movieDTO){
-        movieService.updateMovie(id, movieDTO.toMovie());
+        var updatedMovie = movieDTO.toMovie();
+        movieService.updateMovie(id, updatedMovie);
         return ResponseEntity.noContent().build();
     }
 
