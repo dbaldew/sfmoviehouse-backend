@@ -22,12 +22,12 @@ public class Movie {
 
     //////////////////////////////////////////
     public Movie(){}
-    public Movie(Long movieID, String title, String year, String category, String summary, String description, List<Ticket> tickets) {
+    public Movie(Long movieID, String title, String year, String category, String header, String description, List<Ticket> tickets) {
         this.movieID = movieID;
         this.title = title;
         this.year = year;
         this.category = category;
-        this.summary = summary;
+        this.summary = header;
         this.description = description;
         this.tickets= tickets;
     }
@@ -65,11 +65,11 @@ public class Movie {
         this.category = category;
     }
 
-    public String getSummary() {
+    public String getHeader() {
         return summary;
     }
 
-    public void setSummary(String header) {
+    public void setHeader(String header) {
         this.summary = header;
     }
 

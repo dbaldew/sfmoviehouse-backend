@@ -2,24 +2,21 @@ package com.ticketapp.sfmoviehouse.dto;
 
 import com.ticketapp.sfmoviehouse.entity.Movie;
 import com.ticketapp.sfmoviehouse.entity.Ticket;
-
 import java.util.List;
 
 public class MovieDTO {
-    public Long movieID;
+
+    public Long id;
     public String title;
     public String year;
     public String category;
     public String summary;
     public String description;
-    public List<Ticket>tickets;
+    private List<Ticket> tickets;
 
-    public MovieDTO() {
-    }
-
-    public static MovieDTO fromMovie (Movie movie){
+    public static MovieDTO fromMovie(Movie movie) {
         MovieDTO movieDTO = new MovieDTO();
-        movieDTO.movieID = movie.getMovieID();
+        movieDTO.id = movie.getId();
         movieDTO.title = movie.getTitle();
         movieDTO.year = movie.getYear();
         movieDTO.category = movie.getCategory();
@@ -28,7 +25,8 @@ public class MovieDTO {
         movieDTO.tickets = movie.getTickets();
         return movieDTO;
     }
-    public Movie toMovie (){
+
+    public Movie toMovie() {
         var movie = new Movie();
         movie.setTitle(title);
         movie.setYear(year);

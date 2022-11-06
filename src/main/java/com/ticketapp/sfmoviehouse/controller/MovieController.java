@@ -38,7 +38,7 @@ public class MovieController {
     @PostMapping(value = "")
     public ResponseEntity<Object>addMovie(@RequestBody MovieDTO movieDTO) {
         Movie newMovie = movieService.save(movieDTO.toMovie());
-        Long id = newMovie.getMovieID();
+        Long id = newMovie.getId();
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(id).toUri();
         return ResponseEntity.created(location).build();

@@ -76,7 +76,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/movies/**").hasRole("ADMIN")
                 .antMatchers(GET,"/movies/**").hasRole("USER")
                 .antMatchers("/tickets/**").hasAnyRole("ADMIN","USER")
-                .antMatchers("/files/**").hasAnyRole("ADMIN","USER")
+                .antMatchers("/files/**").hasRole("ADMIN")
                 .anyRequest().denyAll()
                 .and()
                 .sessionManagement()
