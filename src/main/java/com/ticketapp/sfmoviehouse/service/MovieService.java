@@ -53,6 +53,9 @@ public class MovieService {
             movie.setTitle(updatedMovie.getTitle());
             movie.setYear(updatedMovie.getYear());
             movie.setCategory(updatedMovie.getCategory());
+            movie.setSummary(updatedMovie.getSummary());
+            movie.setDescription(updatedMovie.getDescription());
+            movie.setTickets(updatedMovie.getTickets());
             movieRepository.save(movie);
         }
     }
