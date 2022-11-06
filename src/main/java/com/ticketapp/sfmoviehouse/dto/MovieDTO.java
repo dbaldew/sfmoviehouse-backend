@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MovieDTO {
 
-    public Long id;
+    public Long movieID;
     public String title;
     public String year;
     public String category;
@@ -16,7 +16,7 @@ public class MovieDTO {
 
     public static MovieDTO fromMovie(Movie movie) {
         MovieDTO movieDTO = new MovieDTO();
-        movieDTO.id = movie.getId();
+        movieDTO.movieID = movie.getMovieID();
         movieDTO.title = movie.getTitle();
         movieDTO.year = movie.getYear();
         movieDTO.category = movie.getCategory();
