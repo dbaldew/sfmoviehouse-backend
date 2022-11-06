@@ -1,7 +1,7 @@
 package com.ticketapp.sfmoviehouse.controller;
 
-import com.ticketapp.sfmoviehouse.dto.AuthenticationRequest;
-import com.ticketapp.sfmoviehouse.dto.AuthenticationResponse;
+import com.ticketapp.sfmoviehouse.dto.AuthenticationRequestDTO;
+import com.ticketapp.sfmoviehouse.dto.AuthenticationResponseDTO;
 import com.ticketapp.sfmoviehouse.service.UserAuthenticateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +22,11 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequestDTO authenticationRequestDTO) {
 
-        AuthenticationResponse authenticationResponse = userAuthenticateService.authenticateUser(authenticationRequest);
+        AuthenticationResponseDTO authenticationResponseDTO = userAuthenticateService.authenticateUser(authenticationRequestDTO);
 
-        return ResponseEntity.ok(authenticationResponse);
+        return ResponseEntity.ok(authenticationResponseDTO);
     }
 
 }

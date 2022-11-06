@@ -3,15 +3,15 @@ package com.ticketapp.sfmoviehouse.dto;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-public class AuthenticationRequest {
+public class AuthenticationRequestDTO {
     @NotEmpty
     private String username;
     @NotEmpty
     @Size(min=6, message = "password should have at least 6 characters")
     private String password;
 
-    public AuthenticationRequest(){}
-    public AuthenticationRequest(String username, String password) {
+    public AuthenticationRequestDTO(){}
+    public AuthenticationRequestDTO(String username, String password) {
         this.username = username;
         this.password = password;
     }

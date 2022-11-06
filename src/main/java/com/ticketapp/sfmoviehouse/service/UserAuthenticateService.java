@@ -1,7 +1,7 @@
 package com.ticketapp.sfmoviehouse.service;
 
-import com.ticketapp.sfmoviehouse.dto.AuthenticationRequest;
-import com.ticketapp.sfmoviehouse.dto.AuthenticationResponse;
+import com.ticketapp.sfmoviehouse.dto.AuthenticationRequestDTO;
+import com.ticketapp.sfmoviehouse.dto.AuthenticationResponseDTO;
 import com.ticketapp.sfmoviehouse.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,10 +20,10 @@ public class UserAuthenticateService {
     private UserDetailsService userDetailsService;
     @Autowired
     JwtUtil jwtUtl;
-    public AuthenticationResponse authenticateUser(AuthenticationRequest authenticationRequest) {
+    public AuthenticationResponseDTO authenticateUser(AuthenticationRequestDTO authenticationRequestDTO) {
 
-        String username = authenticationRequest.getUsername();
-        String password = authenticationRequest.getPassword();
+        String username = authenticationRequestDTO.getUsername();
+        String password = authenticationRequestDTO.getPassword();
 
         try {
             authenticationManager.authenticate(
@@ -38,6 +38,6 @@ public class UserAuthenticateService {
 
         final String jwt = jwtUtl.generateToken(userDetails);
 
-        return new AuthenticationResponse(jwt);
+        return new AuthenticationResponseDTO(jwt);
     }
 }
