@@ -21,17 +21,19 @@ public class Movie {
     private List<Ticket> tickets = new ArrayList<>();
 
     //////////////////////////////////////////
-    public Movie(){}
-    public Movie(Long movieID, String title, String year, String category, String header, String description, List<Ticket> tickets) {
+
+    public Movie() {
+    }
+
+    public Movie(Long movieID, String title, String year, String category, String summary, String description, List<Ticket> tickets) {
         this.movieID = movieID;
         this.title = title;
         this.year = year;
         this.category = category;
-        this.summary = header;
+        this.summary = summary;
         this.description = description;
-        this.tickets= tickets;
+        this.tickets = tickets;
     }
-    ////////////////////////////////////////////
 
     public Long getMovieID() {
         return movieID;
@@ -65,12 +67,12 @@ public class Movie {
         this.category = category;
     }
 
-    public String getHeader() {
+    public String getSummary() {
         return summary;
     }
 
-    public void setHeader(String header) {
-        this.summary = header;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public String getDescription() {
