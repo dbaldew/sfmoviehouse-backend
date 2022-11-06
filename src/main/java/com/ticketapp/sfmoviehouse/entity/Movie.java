@@ -9,7 +9,7 @@ import java.util.List;
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long movieID;
+    private Long id;
     private String title;
     private String year;
     private String category;
@@ -22,23 +22,23 @@ public class Movie {
 
     //////////////////////////////////////////
     public Movie(){}
-    public Movie(Long movieID, String title, String year, String category, String header, String description, List<Ticket> tickets) {
-        this.movieID = movieID;
+
+    public Movie(Long id, String title, String year, String category, String summary, String description, List<Ticket> tickets) {
+        this.id = id;
         this.title = title;
         this.year = year;
         this.category = category;
-        this.summary = header;
+        this.summary = summary;
         this.description = description;
-        this.tickets= tickets;
-    }
-    ////////////////////////////////////////////
-
-    public Long getMovieID() {
-        return movieID;
+        this.tickets = tickets;
     }
 
-    public void setMovieID(Long movieID) {
-        this.movieID = movieID;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -65,12 +65,12 @@ public class Movie {
         this.category = category;
     }
 
-    public String getHeader() {
+    public String getSummary() {
         return summary;
     }
 
-    public void setHeader(String header) {
-        this.summary = header;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public String getDescription() {

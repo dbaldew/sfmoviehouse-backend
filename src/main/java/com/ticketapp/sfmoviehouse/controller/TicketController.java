@@ -31,15 +31,15 @@ public class TicketController {
         return ResponseEntity.ok().body(tickets);
     }
 
-    @GetMapping(value = "{/id}")
-    public ResponseEntity<TicketDTO> getTicketById(@PathVariable Long id) {
+    @GetMapping(value = "{id}")
+    public ResponseEntity<TicketDTO> getTicketByID(@PathVariable Long id) {
         var ticket = TicketDTO.fromTicket(ticketService.findById(id));
         return ResponseEntity.ok(ticket);
     }
 
 
     @PostMapping(value = "")
-    public ResponseEntity<Object> createTicket(@RequestBody TicketDTO ticketDTO) {
+    public ResponseEntity<Object> addTicket(@RequestBody TicketDTO ticketDTO) {
         Ticket newTicket = ticketService.save(ticketDTO.toTicket());
         Long id = newTicket.getTicketID();
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
