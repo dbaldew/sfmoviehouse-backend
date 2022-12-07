@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -52,7 +53,15 @@ public class UserService {
             user.setPassword(encryptedPassword);
             user.setEnabled(true);
             user.addAuthority("ROLE_USER");
-
+            for (String s : userDTO.getAuthorities()){
+                if(Objects.equals(s, "ROLE_USER")){
+                    continue;
+                }
+                if (!s.startsWith("ROLE_")) {
+                    s = "ROLE_" + s;
+                }
+                user.addAuthority(s);
+            }
             User newUser = userRepository.save(user);
             return newUser.getUsername();
         }
@@ -94,26 +103,26 @@ public class UserService {
         }
     }
 
-    public void addAuthority(String username, String authorityString) {
+    public void addAuthority(String username, String authority) {
         Optional<User> userOptional = userRepository.findById(username);
         if (userOptional.isEmpty()) {
             throw new UserNotFoundException(username);
         }
         else {
             User user = userOptional.get();
-            user.addAuthority(authorityString);
+            user.addAuthority(new Authority(username, authority));
             userRepository.save(user);
         }
     }
 
-    public void removeAuthority(String username, String authorityString) {
+    public void removeAuthority(String username, String authority) {
         Optional<User> userOptional = userRepository.findById(username);
         if (userOptional.isEmpty()) {
             throw new UserNotFoundException(username);
         }
         else {
             User user = userOptional.get();
-            user.removeAuthority(authorityString);
+            user.removeAuthority(authority);
             userRepository.save(user);
         }
     }
