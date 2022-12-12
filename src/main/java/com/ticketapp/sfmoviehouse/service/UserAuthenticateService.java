@@ -2,7 +2,7 @@ package com.ticketapp.sfmoviehouse.service;
 
 import com.ticketapp.sfmoviehouse.dto.AuthenticationRequestDTO;
 import com.ticketapp.sfmoviehouse.dto.AuthenticationResponseDTO;
-import com.ticketapp.sfmoviehouse.util.JwtUtil;
+import com.ticketapp.sfmoviehouse.config.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -29,15 +29,14 @@ public class UserAuthenticateService {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password)
             );
+            final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+            final String jwt = jwtUtl.generateToken(userDetails);
+
+            return new AuthenticationResponseDTO(jwt);
         }
         catch (BadCredentialsException ex) {
             throw new UsernameNotFoundException("Incorrect username or password");
         }
-
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-        final String jwt = jwtUtl.generateToken(userDetails);
-
-        return new AuthenticationResponseDTO(jwt);
     }
 }
