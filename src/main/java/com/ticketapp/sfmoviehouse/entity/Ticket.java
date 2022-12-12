@@ -24,14 +24,13 @@ public class Ticket{
     //////////////////////////////////////////
 
     public Ticket(){}
-
-    public Ticket(long ticketID, String date, String time, String cinema, Movie movie, User user) {
-        this.ticketID = ticketID;
+    public Ticket(long id, String date, String time, String cinema, Movie movie, User user) {
+        this.ticketID = id;
         this.date = date;
         this.time = time;
         this.cinema = cinema;
         this.movie = movie;
-        this.user = user;
+        this.user=user;
     }
 
     public long getTicketID() {

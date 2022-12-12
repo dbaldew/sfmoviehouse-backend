@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class TicketController {
 
     private final TicketService ticketService;
+
     @Autowired
     public TicketController(TicketService ticketService) {
         this.ticketService = ticketService;
@@ -24,15 +25,15 @@ public class TicketController {
 
     @GetMapping("")
     public ResponseEntity<List<TicketDTO>> getAllTickets() {
-        var tickets = ticketService.findAllTickets()
+        var tickets = ticketService.findAll()
                 .stream().map(TicketDTO::fromTicket)
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(tickets);
     }
 
     @GetMapping(value = "{id}")
-    public ResponseEntity<TicketDTO> getTicket(@PathVariable Long id) {
-        var ticket = TicketDTO.fromTicket(ticketService.findTicketById(id));
+    public ResponseEntity<TicketDTO> getTicketByID(@PathVariable Long id) {
+        var ticket = TicketDTO.fromTicket(ticketService.findById(id));
         return ResponseEntity.ok(ticket);
     }
 
@@ -54,8 +55,7 @@ public class TicketController {
 
     @PutMapping(value = "{id}")
     public ResponseEntity<Object> updateTicket(@PathVariable Long id, @RequestBody TicketDTO ticketDTO) {
-        var updatedTicket = ticketDTO.toTicket();
-        ticketService.updateTicket(id, updatedTicket );
+        ticketService.updateTicket(id, ticketDTO.toTicket());
         return ResponseEntity.noContent().build();
     }
 }

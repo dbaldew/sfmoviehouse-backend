@@ -22,12 +22,12 @@ public class TicketService {
         this.userRepository = userRepository;
     }
 
-    public List<Ticket> findAllTickets() {
-        List<Ticket> tickets = ticketRepository.findAll();
-        return tickets;
+    public List<Ticket> findAll() {
+        List<Ticket> ticketList = ticketRepository.findAll();
+        return ticketList;
     }
 
-    public Ticket findTicketById(Long id) {
+    public Ticket findById(Long id) {
         Optional<Ticket> ticketOptional = ticketRepository.findById(id);
         if (ticketOptional.isEmpty()) {
             throw new RecordNotFoundException();
@@ -57,7 +57,7 @@ public class TicketService {
         if (ticketOptional.isEmpty()) {
             throw new RecordNotFoundException();
         }else {
-            Ticket ticket = ticketRepository.findById(id).orElseThrow();
+            Ticket ticket = ticketRepository.findById(id).get();
             ticket.setDate(updatedTicket.getDate());
             ticket.setTime(updatedTicket.getTime());
             ticket.setCinema(updatedTicket.getCinema());
