@@ -1,10 +1,12 @@
-package com.ticketapp.sfmoviehouse.security;
+package com.ticketapp.sfmoviehouse.config;
 
+import com.ticketapp.sfmoviehouse.config.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -31,17 +33,17 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.jwtRequestFilter = jwtRequestFilter;
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username=?")
                 .authoritiesByUsernameQuery("SELECT username, authority FROM authorities AS a WHERE username=?");
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -62,23 +64,21 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic()
                 .and()
-                .csrf().disable()
-                .formLogin().disable()
                 .cors()
                 .and()
                 .authorizeRequests()
                 .antMatchers(POST, "/users/signup").permitAll()
                 .antMatchers(POST, "/authenticate").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").authenticated()
-                .antMatchers(GET, "/public").permitAll()
                 .antMatchers("/users/**").hasAnyRole("ADMIN","USER")
-                .antMatchers("/movies/**").hasRole("ADMIN")
                 .antMatchers(GET,"/movies/**").hasRole("USER")
+                .antMatchers("/movies/**").hasRole("ADMIN")
                 .antMatchers("/tickets/**").hasAnyRole("ADMIN","USER")
                 .antMatchers("/files/**").hasRole("ADMIN")
                 .anyRequest().denyAll()
                 .and()
+                .csrf().disable()
+                .formLogin().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

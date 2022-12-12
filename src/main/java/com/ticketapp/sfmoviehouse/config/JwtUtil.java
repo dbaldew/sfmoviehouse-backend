@@ -1,4 +1,4 @@
-package com.ticketapp.sfmoviehouse.util;
+package com.ticketapp.sfmoviehouse.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
