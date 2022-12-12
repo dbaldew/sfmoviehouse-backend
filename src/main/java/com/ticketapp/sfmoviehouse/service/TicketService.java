@@ -37,10 +37,7 @@ public class TicketService {
     }
 
     public Ticket save(Ticket ticket) {
-        
-
         return ticketRepository.save(ticket);
-
     }
 
     public void deleteById(Long id) {
