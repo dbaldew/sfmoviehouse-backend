@@ -38,10 +38,6 @@ public class MovieService {
         return movies;
     }
 
-
-
-
-
     public Movie findMovieById(long id) {
         Optional<Movie> movieOptional = movieRepository.findById(id);
         if (movieOptional.isEmpty()) {

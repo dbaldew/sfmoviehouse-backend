@@ -24,9 +24,19 @@ public class TicketService {
         this.userRepository = userRepository;
     }
 
-    public List<Ticket> findAll() {
+    public List<Ticket> findAllTickets() {
         List<Ticket> ticketList = ticketRepository.findAll();
         return ticketList;
+    }
+
+    public List<Ticket> findAllTicketsByUser (String username){
+        User user = userRepository.getById(username);
+        return ticketRepository.findTicketsByUser(user);
+    }
+
+    public List<Ticket> findAllTicketsByMovieID (long movieID){
+        Movie movie = movieRepository.getById(movieID);
+        return ticketRepository.findTicketsByMovie(movie);
     }
 
     public Ticket findById(Long id) {
@@ -37,6 +47,8 @@ public class TicketService {
             return ticketOptional.get();
         }
     }
+
+
 
     public Ticket save(Ticket ticket) {
         Ticket newTicket = new Ticket();
