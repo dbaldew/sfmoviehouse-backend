@@ -17,12 +17,32 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
-    public List<Movie> findAll() {
+    public List<Movie> findAllMovies() {
         List<Movie> movies = movieRepository.findAll();
         return movies;
     }
 
-    public Movie findById(long id) {
+    public List<Movie> findAllMoviesByTitle (String title){
+        List<Movie> movies = movieRepository.findAllByTitle(title);
+        return movies;
+    }
+
+
+    public List<Movie> findAllMoviesByYear (String year){
+        List<Movie> movies = movieRepository.findAllByYear(year);
+        return movies;
+    }
+
+    public List<Movie> findAllMoviesByCategory (String category){
+        List<Movie> movies = movieRepository.findAllByCategory(category);
+        return movies;
+    }
+
+
+
+
+
+    public Movie findMovieById(long id) {
         Optional<Movie> movieOptional = movieRepository.findById(id);
         if (movieOptional.isEmpty()) {
             throw new RecordNotFoundException();
@@ -55,7 +75,6 @@ public class MovieService {
             movie.setCategory(updatedMovie.getCategory());
             movie.setSummary(updatedMovie.getSummary());
             movie.setDescription(updatedMovie.getDescription());
-            movie.setTickets(updatedMovie.getTickets());
             movieRepository.save(movie);
         }
     }

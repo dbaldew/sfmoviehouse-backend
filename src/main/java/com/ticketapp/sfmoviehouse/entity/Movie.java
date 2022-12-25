@@ -16,12 +16,6 @@ public class Movie {
     private String summary;
     private String description;
 
-    //////////////////////////////////////////
-    @OneToMany(mappedBy = "movie")
-    private List<Ticket> tickets = new ArrayList<>();
-
-    //////////////////////////////////////////
-
     public Movie() {
     }
 
@@ -32,7 +26,6 @@ public class Movie {
         this.category = category;
         this.summary = summary;
         this.description = description;
-        this.tickets = tickets;
     }
 
     public Long getMovieID() {
@@ -83,12 +76,5 @@ public class Movie {
         this.description = description;
     }
 
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
-    }
 }
 

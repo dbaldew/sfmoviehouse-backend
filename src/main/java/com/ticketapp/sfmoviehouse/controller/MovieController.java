@@ -24,15 +24,37 @@ public class MovieController {
 
     @GetMapping(value = "")
     public ResponseEntity <List<MovieDTO>> getAllMovies() {
-        var movies = movieService.findAll()
+        var movies = movieService.findAllMovies()
                 .stream().map(MovieDTO::fromMovie)
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(movies);
     }
 
-    @GetMapping(value = "{id}")
+    @GetMapping(value = "title/{title}")
+    public ResponseEntity <List<MovieDTO>> getAllMoviesByTitle(@PathVariable String title) {
+        var movies = movieService.findAllMoviesByTitle(title)
+                .stream().map(MovieDTO::fromMovie)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(movies);
+    }
+    @GetMapping(value = "year/{year}")
+    public ResponseEntity <List<MovieDTO>> getAllMoviesByYear(@PathVariable String year) {
+        var movies = movieService.findAllMoviesByYear(year)
+                .stream().map(MovieDTO::fromMovie)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(movies);
+    }
+    @GetMapping(value = "category/{category}")
+    public ResponseEntity <List<MovieDTO>> getAllMoviesByCategory(@PathVariable String category) {
+        var movies = movieService.findAllMoviesByCategory(category)
+                .stream().map(MovieDTO::fromMovie)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(movies);
+    }
+
+    @GetMapping(value = "id/{id}")
     public ResponseEntity<MovieDTO>getMovieById(@PathVariable Long id){
-        var movie = MovieDTO.fromMovie(movieService.findById(id));
+        var movie = MovieDTO.fromMovie(movieService.findMovieById(id));
         return ResponseEntity.ok().body(movie);
     }
     @PostMapping(value = "")

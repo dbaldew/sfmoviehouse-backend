@@ -8,8 +8,9 @@ public class TicketDTO {
     public String date;
     public String time;
     public String cinema;
-    public Movie movie;
-    public User user;
+    public Long movieID;
+
+    public String username;
 
     public TicketDTO() {
     }
@@ -21,17 +22,20 @@ public class TicketDTO {
         ticketDTO.date = ticket.getDate();
         ticketDTO.time = ticket.getTime();
         ticketDTO.cinema = ticket.getCinema();
-        ticketDTO.movie = ticket.getMovie();
-        ticketDTO.user = ticket.getUser();
+        ticketDTO.movieID = ticket.getMovie().getMovieID();
+        ticketDTO.username = ticket.getUser().getUsername();
         return ticketDTO;
     };
     public Ticket toTicket(){
-        var ticket = new Ticket();
+        Ticket ticket = new Ticket();
         ticket.setDate(date);
         ticket.setTime(time);
         ticket.setCinema(cinema);
-        ticket.setMovie(movie);
-        ticket.setUser(user);
+        ticket.setMovie(new Movie());
+        ticket.getMovie().setMovieID(movieID);
+        ticket.setUser(new User());
+        ticket.getUser().setUsername(username);
+
         return ticket;
     }
 }

@@ -1,5 +1,7 @@
 package com.ticketapp.sfmoviehouse.service;
 
+import com.ticketapp.sfmoviehouse.entity.Movie;
+import com.ticketapp.sfmoviehouse.entity.User;
 import com.ticketapp.sfmoviehouse.exception.RecordNotFoundException;
 import com.ticketapp.sfmoviehouse.entity.Ticket;
 import com.ticketapp.sfmoviehouse.repository.MovieRepository;
@@ -37,10 +39,23 @@ public class TicketService {
     }
 
     public Ticket save(Ticket ticket) {
-        
+        Ticket newTicket = new Ticket();
+        newTicket.setDate(ticket.getDate());
+        newTicket.setTime(ticket.getTime());
+        newTicket.setCinema(ticket.getCinema());
 
-        return ticketRepository.save(ticket);
+        Optional<Movie> movieOptional = movieRepository.findById(ticket.getMovie().getMovieID());
+        if(movieOptional.isPresent()){
+            newTicket.setMovie(movieOptional.get());
+        }else throw new RecordNotFoundException();
 
+        Optional<User> userOptional = userRepository.findById(ticket.getUser().getUsername());
+        if(userOptional.isPresent()){
+            newTicket.setUser(ticket.getUser());
+
+        }else throw new RecordNotFoundException();
+
+        return ticketRepository.save(newTicket);
     }
 
     public void deleteById(Long id) {

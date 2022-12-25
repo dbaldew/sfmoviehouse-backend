@@ -24,11 +24,7 @@ public class User {
             fetch = FetchType.EAGER)
     private Set<Authority> authorities = new HashSet<>();
 
-    //////////////////////////////////////////////////////
-    @OneToMany(mappedBy = "user")
-    private List<Ticket> tickets = new ArrayList<>();
 
-    /////////////////////////////////////////////////////
     public User() {
     }
 
@@ -37,7 +33,6 @@ public class User {
         this.password = password;
         this.enabled = enabled;
         this.authorities = authorities;
-        this.tickets = tickets;
     }
 
     public String getUsername() {
@@ -86,14 +81,6 @@ public class User {
 
     public void removeAuthority(String authorityString) {
         this.authorities.removeIf(authority -> authority.getAuthority().equalsIgnoreCase(authorityString));
-    }
-
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
     }
 }
 

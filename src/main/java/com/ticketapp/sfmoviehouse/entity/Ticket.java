@@ -1,10 +1,14 @@
 package com.ticketapp.sfmoviehouse.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 @Entity
-@Table (name = "tickets")
-public class Ticket{
+@Table(name = "tickets")
+public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ticketID;
@@ -12,25 +16,27 @@ public class Ticket{
     private String time;
     private String cinema;
 
-    //////////////////////////////////////////
-
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "movieID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Movie movie;
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "username")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private User user;
 
-    //////////////////////////////////////////
+    public Ticket() {
+    }
 
-    public Ticket(){}
-    public Ticket(long id, String date, String time, String cinema, Movie movie, User user) {
-        this.ticketID = id;
+    public Ticket(long ticketID, String date, String time, String cinema, Movie movie, User user) {
+        this.ticketID = ticketID;
         this.date = date;
         this.time = time;
         this.cinema = cinema;
         this.movie = movie;
-        this.user=user;
+        this.user = user;
     }
 
     public long getTicketID() {
