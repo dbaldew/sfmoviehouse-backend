@@ -39,7 +39,7 @@ public class TicketController {
         return ResponseEntity.ok().body(tickets);
     }
 
-    @GetMapping("movieID/{movieID}")
+    @GetMapping("movieid/{movieID}")
     public ResponseEntity<List<TicketDTO>> getAllTicketsByTitle(@PathVariable Long movieID) {
         var tickets = ticketService.findAllTicketsByMovieID(movieID)
                 .stream().map(TicketDTO::fromTicket)
