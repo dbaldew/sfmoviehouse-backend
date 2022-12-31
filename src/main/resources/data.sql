@@ -9,10 +9,9 @@ VALUES ('user', 'ROLE_USER'),
        ('admin', 'ROLE_ADMIN');
 
 INSERT INTO movies (category, description, summary, title, year)
-VALUES ('horror', 'a snappy movie', 'snap', 'Jaws', 1979),
-       ('crime', 'family drama', 'family drama', 'The Godfather', 1972),
+VALUES ('horror', 'holiday with sharks', 'Jaws', 'Jaws', 1979),
        ('sf comedy', 'sf comedy', 'mars attacks', 'Mars Attacks', 1996),
-       ('future tech', 'artificial intelligence', 'blade runner descr', 'Blade Runner 2049', 2017),
+       ('future tech', 'artificial intelligence', 'blade runner', 'Blade Runner 2049', 2017),
        ('fantasy', 'destroying a ring', 'first part of a journey to the land of Mordor', 'The Lord of the rings', 2001),
        ('anime', 'dystopia', 'akira summary', 'Akira', 1988);
 
