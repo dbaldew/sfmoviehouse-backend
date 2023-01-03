@@ -1,44 +1,46 @@
 
 ### Readme SF Moviehouse Backend
-<p></p>
-<p>Installatie backend</p>
 
-<p>Om dit bestand te kunnen bekijken is de volgende software nodig:</p>
+Installatie backend
 
-Java <br>
+Om dit bestand te kunnen bekijken is de volgende software nodig:
+
+Java   
 https://www.java.com/nl/
 
-Een IDE zoals bijvoorbeeld Intellij <br>
+Een IDE zoals bijvoorbeeld Intellij  
 https://www.jetbrains.com/idea/download/#section=windows
 
-Git <br>
+Git   
 https://git-scm.com/downloads
 
-Postgress voor de database <br>
+Postgress voor de database   
 https://www.postgresql.org/
 
-Postman om endpoints te kunnen checken <br>
+Postman om endpoints te kunnen checken   
 https://www.postman.com/downloads/
 
-Clone het project van de volgende github link: <br>
+Clone het project van de volgende github link:  
 https://github.com/dbaldew/sfmoviehouse-backend
 
 
-In Intellij kan het project geopend worden. <br>
+In Intellij kan het project geopend worden.  
 Ga naar File | new | project from  version control
 
 
-Plak vervolgens de github link die je gecloned hebt in de url. Maak een nieuwe map aan voor het project en klik op clone. Klik vervolgens op ‘trust project’. Het project zal openen in Intellij.
+Plak vervolgens de github link die je gecloned hebt in de url.   
+Maak een nieuwe map aan voor het project en klik op clone. 
+Klik vervolgens op ‘trust project’. Het project zal openen in Intellij.  
+
+Dit project heeft versiebeheer van Maven.  
+Ga naar View | Tool windows | Maven  
+Er opent zich een zijvenster. Klap de folder uit.  
+Ga naar de map ‘lifecycle’.  
+Selecteer CLEAN en INSTALL (met ctrl) en klik op run.   
+Maven zal het project vervolgens bijwerken.  
 
 
-Dit project heeft versiebeheer van Maven. <br>
-Ga naar View | Tool windows | Maven  <br>
-Er opent zich een zijvenster. Klap de folder uit.  <br>
-Ga naar de map ‘lifecycle’. <br>
-Selecteer CLEAN en INSTALL (met ctrl) en klik op run. Maven zal het project vervolgens bijwerken.
-
-
-Open het bestand pom.xml
+Open vervolgens het bestand application.properties  
 Vervang de volgende regels met onderstaande:
 
 
@@ -46,21 +48,17 @@ spring.datasource.url=jdbc:postgresql://localhost:5432/sfmoviehouse
 
 spring.datasource.username=postgres
 
-spring.datasource.password=postgres  <br> <br>
+spring.datasource.password=postgres  
 
-Maak de database aan in postgress
 
+Maak met deze gegevens een datasource aan in Intellij waarmee de verbinding met een postgress database kan worden gelegd  
 
 Hierna kan het project worden opgestart.
 
+Er zijn twee standaard users meegeleverd:  
 
-Er zijn twee standaard users meegeleverd:
-
-Gebruikersnaam: admin  <br>
-Wachtwoord: password
-
-Gebruikersnaam: user  <br>
-Wachtwoord: password
+Gebruikersnaam: admin / Wachtwoord: password  
+Gebruikersnaam: user / Wachtwoord: password
 
 
 
