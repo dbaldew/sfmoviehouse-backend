@@ -18,5 +18,5 @@ VALUES ('horror', 'holiday with sharks', 'Jaws', 'Jaws', 1979),
 insert into tickets (cinema, date, time, movieid, username)
 VALUES (1, '12-12-2022', '20:00', 1, 'admin'),
        (2, '12-12-2022', '20:00', 1, 'admin'),
-       (3, '02-01-2023', '19:00', 6, 'user'),
+       (3, '02-01-2023', '19:00', 4, 'user'),
        (4, '15-01-2023', '23:00', 3, 'user');
