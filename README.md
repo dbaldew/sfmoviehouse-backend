@@ -41,17 +41,16 @@ Maven zal het project vervolgens bijwerken.
 
 
 Open vervolgens het bestand application.properties  
-Vervang de volgende regels met onderstaande:
+Onderstaande gegevens kunnen gebruikt worden om de datasource aan te maken:
 
 
 spring.datasource.url=jdbc:postgresql://localhost:5432/sfmoviehouse
 
 spring.datasource.username=postgres
 
-spring.datasource.password=postgres  
+spring.datasource.password=postgres     
 
 
-Maak met deze gegevens een datasource aan in Intellij waarmee de verbinding met een postgress database kan worden gelegd  
 
 Hierna kan het project worden opgestart.
 
