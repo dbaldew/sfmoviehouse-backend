@@ -44,13 +44,11 @@ Open vervolgens het bestand application.properties
 Onderstaande gegevens kunnen gebruikt worden om de datasource aan te maken:
 
 
-spring.datasource.url=jdbc:postgresql://localhost:5432/sfmoviehouse
+spring.datasource.url=jdbc:postgresql://localhost:5432/sfmoviehouse  
 
-spring.datasource.username=postgres
+spring.datasource.username=postgres  
 
-spring.datasource.password=postgres     
-
-
+spring.datasource.password=postgres  
 
 Hierna kan het project worden opgestart.
 
