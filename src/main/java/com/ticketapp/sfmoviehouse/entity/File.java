@@ -20,14 +20,17 @@ public class File {
     @Lob
     private byte[] data;
 
+    public File() {
+
+    }
     public File(String name, String type, byte[] data) {
         this.name = name;
         this.type = type;
         this.data = data;
     }
 
-    public File() {
-
+    public String getId() {
+        return id;
     }
 
     public String getName() {
