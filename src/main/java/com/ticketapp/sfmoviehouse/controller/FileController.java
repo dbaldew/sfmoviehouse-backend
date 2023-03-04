@@ -14,7 +14,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 import java.util.stream.Collectors;
-//credit to Bezkoder at https://www.bezkoder.com/spring-boot-upload-file-database/
 
 @RestController
 @RequestMapping (value = "/files")
@@ -46,8 +45,8 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.OK).body(files);
      }
 
-     @GetMapping("/id/{id}")
-    public ResponseEntity<byte[]> getFile(@PathVariable Long id){
+     @GetMapping("/{id}")
+    public ResponseEntity<byte[]> getFile(@PathVariable String id){
         File file = fileService.getFile(String.valueOf(id));
 
         return ResponseEntity.ok()

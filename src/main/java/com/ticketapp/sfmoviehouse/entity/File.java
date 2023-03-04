@@ -4,7 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-//credit to Bezkoder at https://www.bezkoder.com/spring-boot-upload-file-database/
+//For the file-upload components of this application all credit goes to Bezkoder at https://www.bezkoder.com/spring-boot-upload-file-database/
 
 @Entity
 @Table(name = "files")
