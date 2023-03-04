@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
 //credit to Bezkoder at https://www.bezkoder.com/spring-boot-upload-file-database/
 
 @RestController
-@RequestMapping(value = "/files")
+@RequestMapping (value = "/files")
 public class FileController {
 
     @Autowired
@@ -33,21 +32,21 @@ public class FileController {
         List<ResponseFile> files = fileService.getAllFiles().map(file -> {
             String fileDownloadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
-                    .path("/files")
-                    .path(String.valueOf(file.getId()))
+                    .path("/files/")
+                    .path(file.getId())
                     .toUriString();
 
             return new ResponseFile(
                     file.getName(),
                     fileDownloadUri,
                     file.getType(),
-                    (long) file.getData().length);
+                    file.getData().length);
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
      }
 
-     @GetMapping("id/{id}")
+     @GetMapping("/id/{id}")
     public ResponseEntity<byte[]> getFile(@PathVariable Long id){
         File file = fileService.getFile(String.valueOf(id));
 
@@ -58,13 +57,13 @@ public class FileController {
 
     @PostMapping("")
     public ResponseEntity<FileResponseMessage> uploadFile(@RequestParam("file")MultipartFile file){
-        String message = "";
+        String message;
         try{
             fileService.store(file);
             message = "File upload success: " + file.getOriginalFilename();
             return ResponseEntity.status(HttpStatus.OK).body(new FileResponseMessage(message));
         }catch (Exception e){
-            message = "File upload failed: " + file.getOriginalFilename();
+            message = "File upload failed: " + file.getOriginalFilename() + ", Error: " + e.getMessage();
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new FileResponseMessage(message));
         }
     }

@@ -25,8 +25,8 @@ public class FileService {
     }
 
     public File store (MultipartFile file) throws IOException{
-        String fileName = StringUtils.cleanPath((Objects.requireNonNull(file.getOriginalFilename())));
-        File File = new File(fileName, file.getContentType(), file.getBytes());
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+        File File = new File (fileName, file.getContentType(), file.getBytes());
         return fileRepository.save(File);
     }
 

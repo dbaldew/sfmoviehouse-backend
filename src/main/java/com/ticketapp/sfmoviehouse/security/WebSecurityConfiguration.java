@@ -70,14 +70,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(POST, "/users/signup").permitAll()
                 .antMatchers(POST, "/authenticate").permitAll()
                 .antMatchers(GET,"/movies/**").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").authenticated()
-                .antMatchers(GET, "/public").permitAll()
+                .antMatchers("/tickets/**").hasAnyRole("ADMIN","USER")
+
+
                 .antMatchers("/users/**").hasAnyRole("ADMIN","USER")
+                .antMatchers("/user/**").authenticated()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/movies/**").hasRole("ADMIN")
 
-                .antMatchers("/tickets/**").hasAnyRole("ADMIN","USER")
                 .antMatchers("/files/**").hasRole("ADMIN")
+
                 .anyRequest().denyAll()
                 .and()
                 .sessionManagement()

@@ -3,6 +3,7 @@ package com.ticketapp.sfmoviehouse.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+
 //credit to Bezkoder at https://www.bezkoder.com/spring-boot-upload-file-database/
 
 @Entity
@@ -11,7 +12,7 @@ public class File {
 
     @Id
     @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name="uuid", strategy = "uuid2")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
     private String name;
@@ -24,6 +25,7 @@ public class File {
     public File() {
 
     }
+
     public File(String name, String type, byte[] data) {
         this.name = name;
         this.type = type;
