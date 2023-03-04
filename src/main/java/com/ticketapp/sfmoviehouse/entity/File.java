@@ -2,10 +2,10 @@ package com.ticketapp.sfmoviehouse.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "files")
 public class File {
 
     @Id
@@ -24,6 +24,10 @@ public class File {
         this.name = name;
         this.type = type;
         this.data = data;
+    }
+
+    public File() {
+
     }
 
     public String getName() {
