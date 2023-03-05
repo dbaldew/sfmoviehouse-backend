@@ -13,6 +13,54 @@ public class MovieDTO {
     public String summary;
     public String description;
 
+    public Long getMovieID() {
+        return movieID;
+    }
+
+    public void setMovieID(Long movieID) {
+        this.movieID = movieID;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public static MovieDTO fromMovie(Movie movie) {
         MovieDTO movieDTO = new MovieDTO();
         movieDTO.movieID = movie.getMovieID();
@@ -24,7 +72,7 @@ public class MovieDTO {
         return movieDTO;
     }
 
-    public Movie toMovie() {
+    public  Movie toMovie() {
         Movie movie = new Movie();
         movie.setTitle(title);
         movie.setYear(year);

@@ -1,5 +1,6 @@
 package com.ticketapp.sfmoviehouse.service;
 
+import com.ticketapp.sfmoviehouse.dto.MovieDTO;
 import com.ticketapp.sfmoviehouse.exception.RecordNotFoundException;
 import com.ticketapp.sfmoviehouse.entity.Movie;
 import com.ticketapp.sfmoviehouse.repository.MovieRepository;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieService {
@@ -17,61 +19,77 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
-    public List<Movie> findAllMovies() {
-        List<Movie> movies = movieRepository.findAll();
-        return movies;
+    public List<MovieDTO> findAllMovies() {
+        List<Movie> movieList = movieRepository.findAll();
+        List<MovieDTO> MovieDTOList = movieList.stream().map(MovieDTO::fromMovie)
+                .collect(Collectors.toList());
+        return MovieDTOList;
     }
 
-    public List<Movie> findAllMoviesByTitle (String title){
-        List<Movie> movies = movieRepository.findAllByTitle(title);
-        return movies;
+    public List<MovieDTO> findAllMoviesByTitle(String title) {
+        List<Movie> movieList = movieRepository.findAllByTitle(title);
+        List<MovieDTO> MovieDTOLIst = movieList.stream().map(MovieDTO::fromMovie)
+                .collect(Collectors.toList());
+        return MovieDTOLIst;
     }
 
 
-    public List<Movie> findAllMoviesByYear (String year){
-        List<Movie> movies = movieRepository.findAllByYear(year);
-        return movies;
+    public List<MovieDTO> findAllMoviesByYear(String year) {
+        List<Movie> movieList = movieRepository.findAllByYear(year);
+        List<MovieDTO> MovieDTOList = movieList.stream().map(MovieDTO::fromMovie)
+                .collect(Collectors.toList());
+        return MovieDTOList;
     }
 
-    public List<Movie> findAllMoviesByCategory (String category){
-        List<Movie> movies = movieRepository.findAllByCategory(category);
-        return movies;
+    public List<MovieDTO> findAllMoviesByCategory(String category) {
+        List<Movie> movieList = movieRepository.findAllByCategory(category);
+        List<MovieDTO> MovieDTOList = movieList.stream().map(MovieDTO::fromMovie)
+                .collect(Collectors.toList());
+        return MovieDTOList;
     }
 
-    public Movie findMovieById(long id) {
+    public MovieDTO findMovieById(long id) {
         Optional<Movie> movieOptional = movieRepository.findById(id);
-        if (movieOptional.isEmpty()) {
-            throw new RecordNotFoundException();
+        if (movieOptional.isPresent()) {
+            Movie m = movieOptional.get();
+            return MovieDTO.fromMovie(m);
         } else {
-            return movieOptional.get();
+            throw new RecordNotFoundException();
         }
     }
 
-    public Movie save(Movie movie) {
-        return movieRepository.save(movie);
+    public MovieDTO save(MovieDTO movieDTO) {
+        Movie m = movieDTO.toMovie();
+        movieRepository.save(m);
+        return MovieDTO.fromMovie(m);
     }
 
     public void deleteById(Long id) {
         Optional<Movie> movieOptional = movieRepository.findById(id);
-        if (movieOptional.isEmpty()) {
-            throw new RecordNotFoundException();
-        } else {
+        if (movieOptional.isPresent()) {
             movieRepository.deleteById(id);
+        } else {
+            throw new RecordNotFoundException();
         }
     }
 
-    public void updateMovie(Long id, Movie updatedMovie) {
+    public MovieDTO updateMovie(Long id, MovieDTO toUpdateMovieDTO) {
         Optional<Movie> movieOptional = movieRepository.findById(id);
-        if (movieOptional.isEmpty()) {
+        if (movieOptional.isPresent()) {
+            Movie m = movieRepository.findById(id).orElseThrow();
+            m.setTitle(toUpdateMovieDTO.getTitle());
+            m.setYear(toUpdateMovieDTO.getYear());
+            m.setCategory(toUpdateMovieDTO.getCategory());
+            m.setSummary(toUpdateMovieDTO.getSummary());
+            m.setDescription(toUpdateMovieDTO.getDescription());
+            movieRepository.save(m);
+
+            return MovieDTO.fromMovie(m);
+
+        } else {
             throw new RecordNotFoundException();
-        } else  {
-            Movie movie = movieRepository.findById(id).orElseThrow();
-            movie.setTitle(updatedMovie.getTitle());
-            movie.setYear(updatedMovie.getYear());
-            movie.setCategory(updatedMovie.getCategory());
-            movie.setSummary(updatedMovie.getSummary());
-            movie.setDescription(updatedMovie.getDescription());
-            movieRepository.save(movie);
+
         }
     }
+
 }
