@@ -21,9 +21,9 @@ public class MovieService {
 
     public List<MovieDTO> findAllMovies() {
         List<Movie> movieList = movieRepository.findAll();
-        List<MovieDTO> MovieDTOList = movieList.stream().map(MovieDTO::fromMovie)
+        List<MovieDTO> movieDTOList = movieList.stream().map(MovieDTO::fromMovie)
                 .collect(Collectors.toList());
-        return MovieDTOList;
+        return movieDTOList;
     }
 
     public List<MovieDTO> findAllMoviesByTitle(String title) {
@@ -64,31 +64,28 @@ public class MovieService {
         return MovieDTO.fromMovie(m);
     }
 
-    public void deleteById(Long id) {
-        Optional<Movie> movieOptional = movieRepository.findById(id);
-        if (movieOptional.isPresent()) {
-            movieRepository.deleteById(id);
-        } else {
-            throw new RecordNotFoundException();
-        }
-    }
-
     public MovieDTO updateMovie(Long id, MovieDTO toUpdateMovieDTO) {
         Optional<Movie> movieOptional = movieRepository.findById(id);
         if (movieOptional.isPresent()) {
-            Movie m = movieRepository.findById(id).orElseThrow();
+            Movie m = movieOptional.get();
             m.setTitle(toUpdateMovieDTO.getTitle());
             m.setYear(toUpdateMovieDTO.getYear());
             m.setCategory(toUpdateMovieDTO.getCategory());
             m.setSummary(toUpdateMovieDTO.getSummary());
             m.setDescription(toUpdateMovieDTO.getDescription());
             movieRepository.save(m);
-
             return MovieDTO.fromMovie(m);
-
         } else {
             throw new RecordNotFoundException();
+        }
+    }
 
+    public void deleteById(Long id) {
+        Optional<Movie> movieOptional = movieRepository.findById(id);
+        if (movieOptional.isPresent()) {
+            movieRepository.deleteById(id);
+        } else {
+            throw new RecordNotFoundException();
         }
     }
 

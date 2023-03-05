@@ -25,53 +25,46 @@ public class TicketController {
 
     @GetMapping("")
     public ResponseEntity<List<TicketDTO>> getAllTickets() {
-        var tickets = ticketService.findAllTickets()
-                .stream().map(TicketDTO::fromTicket)
-                .collect(Collectors.toList());
+        var tickets = ticketService.findAllTickets();
         return ResponseEntity.ok().body(tickets);
     }
 
     @GetMapping("username/{username}")
     public ResponseEntity<List<TicketDTO>> getAllTicketsByUser(@PathVariable String username) {
-        var tickets = ticketService.findAllTicketsByUser(username)
-                .stream().map(TicketDTO::fromTicket)
-                .collect(Collectors.toList());
+        var tickets = ticketService.findAllTicketsByUser(username);
         return ResponseEntity.ok().body(tickets);
     }
 
     @GetMapping("movieid/{movieID}")
     public ResponseEntity<List<TicketDTO>> getAllTicketsByTitle(@PathVariable Long movieID) {
-        var tickets = ticketService.findAllTicketsByMovieID(movieID)
-                .stream().map(TicketDTO::fromTicket)
-                .collect(Collectors.toList());
+        var tickets = ticketService.findAllTicketsByMovieID(movieID);
         return ResponseEntity.ok().body(tickets);
     }
 
     @GetMapping(value = "id{id}")
     public ResponseEntity<TicketDTO> getTicketByID(@PathVariable Long id) {
-        var ticket = TicketDTO.fromTicket(ticketService.findById(id));
+        var ticket = ticketService.findById(id);
         return ResponseEntity.ok(ticket);
     }
 
-
     @PostMapping(value = "")
-    public ResponseEntity<Object> addTicket(@RequestBody TicketDTO ticketDTO) {
-        Ticket newTicket = ticketService.save(ticketDTO.toTicket());
-        Long id = newTicket.getTicketID();
+    public ResponseEntity<TicketDTO> addTicket(@RequestBody TicketDTO ticketDTO) {
+        var ticket = ticketService.save(ticketDTO);
+        Long id = ticket.getTicketID();
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(id).toUri();
         return ResponseEntity.created(location).build();
+    }
+
+    @PutMapping(value = "id{id}")
+    public ResponseEntity<TicketDTO> updateTicket(@PathVariable Long id, @RequestBody TicketDTO toUpdateTicketDTO) {
+        TicketDTO ticket = ticketService.updateTicket(id, toUpdateTicketDTO);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping(value = "id/{id}")
     public ResponseEntity<Object> deleteTicket(@PathVariable Long id) {
         ticketService.deleteById(id);
         return ResponseEntity.ok("removed ticket");
-    }
-
-    @PutMapping(value = "id{id}")
-    public ResponseEntity<Object> updateTicket(@PathVariable Long id, @RequestBody TicketDTO ticketDTO) {
-        ticketService.updateTicket(id, ticketDTO.toTicket());
-        return ResponseEntity.noContent().build();
     }
 }

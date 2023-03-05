@@ -1,8 +1,6 @@
 package com.ticketapp.sfmoviehouse.dto;
 
 import com.ticketapp.sfmoviehouse.entity.Movie;
-import com.ticketapp.sfmoviehouse.entity.Ticket;
-import java.util.List;
 
 public class MovieDTO {
 

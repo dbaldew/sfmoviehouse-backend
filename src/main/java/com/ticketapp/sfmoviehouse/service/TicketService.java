@@ -1,5 +1,6 @@
 package com.ticketapp.sfmoviehouse.service;
 
+import com.ticketapp.sfmoviehouse.dto.TicketDTO;
 import com.ticketapp.sfmoviehouse.entity.Movie;
 import com.ticketapp.sfmoviehouse.entity.User;
 import com.ticketapp.sfmoviehouse.exception.RecordNotFoundException;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TicketService {
@@ -24,73 +26,66 @@ public class TicketService {
         this.userRepository = userRepository;
     }
 
-    public List<Ticket> findAllTickets() {
+    public List<TicketDTO> findAllTickets() {
         List<Ticket> ticketList = ticketRepository.findAll();
-        return ticketList;
+        List<TicketDTO> ticketDTOList = ticketList.stream().map(TicketDTO::fromTicket)
+                .collect(Collectors.toList());
+        return ticketDTOList;
     }
 
-    public List<Ticket> findAllTicketsByUser (String username){
+    public List<TicketDTO> findAllTicketsByUser (String username){
         User user = userRepository.getById(username);
-        return ticketRepository.findTicketsByUser(user);
+        List<Ticket> userTicketList = ticketRepository.findTicketsByUser(user);
+        List<TicketDTO> userTicketDTOList = userTicketList.stream().map(TicketDTO::fromTicket)
+                .collect(Collectors.toList());
+        return userTicketDTOList;
     }
 
-    public List<Ticket> findAllTicketsByMovieID (long movieID){
+    public List<TicketDTO> findAllTicketsByMovieID (long movieID){
         Movie movie = movieRepository.getById(movieID);
-        return ticketRepository.findTicketsByMovie(movie);
+        List<Ticket> idTicketList = ticketRepository.findTicketsByMovie(movie);
+                List<TicketDTO> idTicketDTOList = idTicketList.stream().map(TicketDTO::fromTicket)
+                .collect(Collectors.toList());
+        return idTicketDTOList;
     }
 
-    public Ticket findById(Long id) {
+    public TicketDTO findById(Long id) {
         Optional<Ticket> ticketOptional = ticketRepository.findById(id);
-        if (ticketOptional.isEmpty()) {
-            throw new RecordNotFoundException();
+        if (ticketOptional.isPresent()) {
+            return TicketDTO.fromTicket(ticketOptional.get());
         }else {
-            return ticketOptional.get();
+            throw new RecordNotFoundException();
         }
     }
 
+    public TicketDTO save(TicketDTO ticketDTO) {
+        Ticket t = ticketDTO.toTicket();
+        ticketRepository.save(t);
+        return TicketDTO.fromTicket(t);
+    }
 
-
-    public Ticket save(Ticket ticket) {
-        Ticket newTicket = new Ticket();
-        newTicket.setDate(ticket.getDate());
-        newTicket.setTime(ticket.getTime());
-        newTicket.setCinema(ticket.getCinema());
-
-        Optional<Movie> movieOptional = movieRepository.findById(ticket.getMovie().getMovieID());
-        if(movieOptional.isPresent()){
-            newTicket.setMovie(movieOptional.get());
-        }else throw new RecordNotFoundException();
-
-        Optional<User> userOptional = userRepository.findById(ticket.getUser().getUsername());
-        if(userOptional.isPresent()){
-            newTicket.setUser(ticket.getUser());
-
-        }else throw new RecordNotFoundException();
-
-        return ticketRepository.save(newTicket);
+    public TicketDTO updateTicket(Long id, TicketDTO toUpdateTicketDTO) {
+        Optional<Ticket> ticketOptional = ticketRepository.findById(id);
+        if (ticketOptional.isPresent()) {
+            Ticket t = ticketOptional.get();
+            t.setDate(toUpdateTicketDTO.getDate());
+            t.setTime(toUpdateTicketDTO.getTime());
+            t.setCinema(toUpdateTicketDTO.getCinema());
+            t.setMovie(toUpdateTicketDTO.toTicket().getMovie());
+            t.setUser(toUpdateTicketDTO.toTicket().getUser());
+            ticketRepository.save(t);
+            return TicketDTO.fromTicket(t);
+        }else {
+            throw new RecordNotFoundException();
+        }
     }
 
     public void deleteById(Long id) {
         Optional<Ticket> ticketOptional = ticketRepository.findById(id);
-        if (ticketOptional.isEmpty()) {
-            throw new RecordNotFoundException();
-        }else {
+        if (ticketOptional.isPresent()) {
             ticketRepository.deleteById(id);
-        }
-    }
-
-    public void updateTicket(Long id, Ticket updatedTicket) {
-        Optional<Ticket> ticketOptional = ticketRepository.findById(id);
-        if (ticketOptional.isEmpty()) {
-            throw new RecordNotFoundException();
         }else {
-            Ticket ticket = ticketRepository.findById(id).get();
-            ticket.setDate(updatedTicket.getDate());
-            ticket.setTime(updatedTicket.getTime());
-            ticket.setCinema(updatedTicket.getCinema());
-            ticket.setMovie(updatedTicket.getMovie());
-            ticket.setUser(updatedTicket.getUser());
-            ticketRepository.save(ticket);
+            throw new RecordNotFoundException();
         }
     }
 }
