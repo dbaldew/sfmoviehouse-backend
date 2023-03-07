@@ -1,5 +1,6 @@
 package com.ticketapp.sfmoviehouse.service;
 
+import com.ticketapp.sfmoviehouse.dto.TicketDTO;
 import com.ticketapp.sfmoviehouse.entity.Movie;
 import com.ticketapp.sfmoviehouse.entity.Ticket;
 import com.ticketapp.sfmoviehouse.entity.User;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
@@ -199,7 +201,50 @@ class TicketServiceTest {
     }
 
     @Test
-    void save() {
+    void shouldSaveTicketToDatabase() {
+
+        User testUser = User.builder()
+                .username("Tester")
+                .password("123")
+                .enabled(true)
+                .build();
+
+        Movie testMovie = Movie.builder()
+                .movieID(1L)
+                .title("TestMovie")
+                .year("2023")
+                .category("TestCategory")
+                .summary("TestSummary")
+                .description("TestDescription")
+                .build();
+
+        Ticket testTicket = Ticket.builder()
+                .ticketID(1L)
+                .date("01-01-2023")
+                .time("20:00")
+                .cinema("1")
+                .user(testUser)
+                .movie(testMovie)
+                .build();
+
+        TicketDTO testTicketDTO = TicketDTO.builder()
+                .ticketID(1L)
+                .ticketID(1L)
+                .date("01-01-2023")
+                .time("20:00")
+                .cinema("1")
+                .movieID(1L)
+                .username("Tester")
+                .build();
+
+        when(ticketRepository.save(Mockito.any(Ticket.class)))
+                .thenReturn(testTicket);
+
+        TicketDTO savedTicket = ticketService.save(testTicketDTO);
+
+        Assertions.assertThat(savedTicket).isNotNull();
+
+
     }
 
     @Test
