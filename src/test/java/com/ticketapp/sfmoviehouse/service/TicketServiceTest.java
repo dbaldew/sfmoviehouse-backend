@@ -9,7 +9,6 @@ import com.ticketapp.sfmoviehouse.repository.TicketRepository;
 import com.ticketapp.sfmoviehouse.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -42,27 +41,6 @@ class TicketServiceTest {
 
     @InjectMocks
     User user;
-
-    @BeforeEach
-    void setUp() {
-//        ticket = new Ticket();
-//        ticket.setTicketID(1L);
-//        ticket.setDate("01-01-2023");
-//        ticket.setTime("20:00");
-//        ticket.setCinema("1");
-//        movie = new Movie();
-//        movie.setMovieID(1L);
-//        movie.setCategory("horror");
-//        movie.setDescription("descr");
-//        movie.setYear("1979");
-//        movie.setSummary("sum");
-//        movie.setTitle("Jaws");
-//        user = new User();
-//        user.setUsername("testUser");
-//        user.setPassword("123");
-//        user.setEnabled(true);
-
-    }
 
     @Test
     void shouldReturnAllTickets() {
@@ -241,17 +219,57 @@ class TicketServiceTest {
                 .thenReturn(testTicket);
 
         TicketDTO savedTicket = ticketService.save(testTicketDTO);
-
         Assertions.assertThat(savedTicket).isNotNull();
-
-
     }
 
     @Test
     void updateTicket() {
+        User testUser = User.builder()
+                .username("Tester")
+                .password("123")
+                .enabled(true)
+                .build();
+
+        Movie testMovie = Movie.builder()
+                .movieID(1L)
+                .title("TestMovie")
+                .year("2023")
+                .category("TestCategory")
+                .summary("TestSummary")
+                .description("TestDescription")
+                .build();
+
+        Ticket testTicket = Ticket.builder()
+                .ticketID(1L)
+                .date("01-01-2023")
+                .time("20:00")
+                .cinema("1")
+                .user(testUser)
+                .movie(testMovie)
+                .build();
+
+        TicketDTO testTicketDTO = TicketDTO.builder()
+                .ticketID(1L)
+                .ticketID(1L)
+                .date("01-01-2023")
+                .time("20:00")
+                .cinema("1")
+                .movieID(1L)
+                .username("Tester")
+                .build();
+
+
+        when(ticketRepository.save(Mockito.any(Ticket.class)))
+                .thenReturn(testTicket);
+
+        TicketDTO upDatedTicket = ticketService.save(testTicketDTO);
+        Assertions.assertThat(upDatedTicket).isNotNull();
+
     }
 
     @Test
     void deleteById() {
+        ticketRepository.deleteById(1L);
+        Mockito.verify(ticketRepository).deleteById(1L);
     }
 }

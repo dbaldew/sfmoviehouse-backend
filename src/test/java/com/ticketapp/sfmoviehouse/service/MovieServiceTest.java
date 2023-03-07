@@ -4,8 +4,6 @@ import com.ticketapp.sfmoviehouse.dto.MovieDTO;
 import com.ticketapp.sfmoviehouse.entity.Movie;
 import com.ticketapp.sfmoviehouse.repository.MovieRepository;
 import org.assertj.core.api.Assertions;
-
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -52,15 +49,6 @@ public class MovieServiceTest {
                 .category("category")
                 .build();
 
-        MovieDTO movieDTO = MovieDTO.builder()
-                .movieID(1L)
-                .description("descr")
-                .title("title")
-                .summary("summary")
-                .year("year")
-                .category("category")
-                .build();
-
         List<Movie> movies = new ArrayList<>();
         movies.add(movie);
 
@@ -82,18 +70,9 @@ public class MovieServiceTest {
                 .category("category")
                 .build();
 
-        MovieDTO movieDTO = MovieDTO.builder()
-                .movieID(1L)
-                .description("descr")
-                .title("title")
-                .summary("summary")
-                .year("year")
-                .category("category")
-                .build();
 
         List<Movie> movies = new ArrayList<>();
         movies.add(movie);
-
 
         when(movieRepository.findAllByTitle("title"))
                 .thenReturn(movies);
@@ -113,18 +92,9 @@ public class MovieServiceTest {
                 .category("category")
                 .build();
 
-        MovieDTO movieDTO = MovieDTO.builder()
-                .movieID(1L)
-                .description("descr")
-                .title("title")
-                .summary("summary")
-                .year("year")
-                .category("category")
-                .build();
 
         List<Movie> movies = new ArrayList<>();
         movies.add(movie);
-
 
         when(movieRepository.findAllByYear("year"))
                 .thenReturn(movies);
@@ -144,18 +114,8 @@ public class MovieServiceTest {
                 .category("category")
                 .build();
 
-        MovieDTO movieDTO = MovieDTO.builder()
-                .movieID(1L)
-                .description("descr")
-                .title("title")
-                .summary("summary")
-                .year("year")
-                .category("category")
-                .build();
-
         List<Movie> movies = new ArrayList<>();
         movies.add(movie);
-
 
         when(movieRepository.findAllByCategory("category"))
                 .thenReturn(movies);
@@ -174,16 +134,6 @@ public class MovieServiceTest {
                 .year("year")
                 .category("category")
                 .build();
-
-        MovieDTO testMovieDTO = MovieDTO.builder()
-                .movieID(1L)
-                .description("descr")
-                .title("title")
-                .summary("summary")
-                .year("year")
-                .category("category")
-                .build();
-
 
         when(movieRepository.findById(1L))
                 .thenReturn(Optional.ofNullable(movie));
