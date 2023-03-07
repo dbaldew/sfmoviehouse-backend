@@ -1,11 +1,13 @@
 package com.ticketapp.sfmoviehouse.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
+@Builder
 @Entity
 @Table(name = "tickets")
 public class Ticket {

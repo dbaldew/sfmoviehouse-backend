@@ -2,7 +2,13 @@ package com.ticketapp.sfmoviehouse.dto;
 import com.ticketapp.sfmoviehouse.entity.Movie;
 import com.ticketapp.sfmoviehouse.entity.Ticket;
 import com.ticketapp.sfmoviehouse.entity.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TicketDTO {
     public long ticketID;
     public String date;
@@ -11,9 +17,6 @@ public class TicketDTO {
     public Long movieID;
 
     public String username;
-
-    public TicketDTO() {
-    }
 
     public long getTicketID() {
         return ticketID;

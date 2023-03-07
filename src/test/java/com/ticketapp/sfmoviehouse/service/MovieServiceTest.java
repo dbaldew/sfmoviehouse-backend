@@ -4,7 +4,7 @@ import com.ticketapp.sfmoviehouse.dto.MovieDTO;
 import com.ticketapp.sfmoviehouse.entity.Movie;
 import com.ticketapp.sfmoviehouse.repository.MovieRepository;
 import org.assertj.core.api.Assertions;
-import org.h2.engine.Database;
+
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,13 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.AbstractSoftAssertions.assertAll;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-
 @ExtendWith(MockitoExtension.class)
-
 public class MovieServiceTest {
 
     @Mock
@@ -36,11 +32,6 @@ public class MovieServiceTest {
     @Mock
     private Movie movie;
 
-    @Mock
-    private MovieDTO movieDTO;
-
-    @Mock
-    Database databaseMock;
 
     @BeforeEach
     void setUp() {
