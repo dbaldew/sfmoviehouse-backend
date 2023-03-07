@@ -164,7 +164,37 @@ class TicketServiceTest {
     }
 
     @Test
-    void findById() {
+    void shouldFindTicketById() {
+
+        User testUser = User.builder()
+                .username("Tester")
+                .password("123")
+                .enabled(true)
+                .build();
+
+        Movie testMovie = Movie.builder()
+                .movieID(1L)
+                .title("TestMovie")
+                .year("2023")
+                .category("TestCategory")
+                .summary("TestSummary")
+                .description("TestDescription")
+                .build();
+
+        Ticket testTicket = Ticket.builder()
+                .ticketID(1L)
+                .date("01-01-2023")
+                .time("20:00")
+                .cinema("1")
+                .user(testUser)
+                .movie(testMovie)
+                .build();
+
+        when(ticketRepository.findById(1L))
+                .thenReturn(Optional.ofNullable(testTicket));
+
+        var actual = ticketService.findById(1L);
+        Assertions.assertThat(actual.ticketID).isEqualTo(1L);
 
     }
 
