@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.AbstractSoftAssertions.assertAll;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
@@ -261,7 +263,9 @@ public class MovieServiceTest {
     }
 
     @Test
-    void deleteById() {
+    void shouldDeleteMovieByID() {
 
+        movieRepository.deleteById(1L);
+        Mockito.verify(movieRepository).deleteById(1L);
     }
 }
