@@ -15,12 +15,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 
@@ -43,9 +42,6 @@ public class MovieServiceTest {
     @Mock
     Database databaseMock;
 
-
-
-
     @BeforeEach
     void setUp(){
         movie = new Movie();
@@ -57,9 +53,8 @@ public class MovieServiceTest {
         movie.setTitle("Jaws");
     }
 
-
     @Test
-    void shouldReturnAllMoviesDTO() {
+    void shouldReturnAllMovies() {
         Movie movie = Movie.builder()
                 .movieID(1L)
                 .description("descr")
@@ -91,7 +86,35 @@ public class MovieServiceTest {
 
     @Test
     void findAllMoviesByTitle() {
+        Movie movie = Movie.builder()
+                .movieID(1L)
+                .description("descr")
+                .title("title")
+                .summary("summary")
+                .year("year")
+                .category("category")
+                .build();
+
+        MovieDTO movieDTO = MovieDTO.builder()
+                .movieID(1L)
+                .description("descr")
+                .title("title")
+                .summary("summary")
+                .year("year")
+                .category("category")
+                .build();
+
+        List<Movie> movies = new ArrayList<>();
+        movies.add(movie);
+
+        Mockito
+                .when(movieRepository.findAllByTitle("title"))
+                .thenReturn(movies);
+
+        var actual = movieService.findAllMoviesByTitle("title");
+        Assertions.assertThat(actual.size()).isEqualTo(movies.size());
     }
+
 
     @Test
     void findAllMoviesByYear() {
@@ -102,7 +125,33 @@ public class MovieServiceTest {
     }
 
     @Test
-    void findMovieById() {
+    void shouldReturnMovieById() {
+        Movie testMovie = Movie.builder()
+                .movieID(1L)
+                .description("descr")
+                .title("title")
+                .summary("summary")
+                .year("year")
+                .category("category")
+                .build();
+
+        MovieDTO testMovieDTO = MovieDTO.builder()
+                .movieID(1L)
+                .description("descr")
+                .title("title")
+                .summary("summary")
+                .year("year")
+                .category("category")
+                .build();
+
+        Mockito
+                .when(movieRepository.findById(1L))
+                .thenReturn(Optional.ofNullable(movie));
+
+        var actual = movieService.findMovieById(1L);
+
+        Assertions.assertThat(actual.movieID).isEqualTo(movie.getMovieID());
+
     }
 
     @Test
@@ -134,9 +183,11 @@ public class MovieServiceTest {
 
     @Test
     void updateMovie() {
+
     }
 
     @Test
     void deleteById() {
+
     }
 }
