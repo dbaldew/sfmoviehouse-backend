@@ -1,7 +1,13 @@
 package com.ticketapp.sfmoviehouse.dto;
 
 import com.ticketapp.sfmoviehouse.entity.Movie;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class MovieDTO {
 
     public Long movieID;

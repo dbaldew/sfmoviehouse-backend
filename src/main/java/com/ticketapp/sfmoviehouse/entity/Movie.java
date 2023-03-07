@@ -1,9 +1,12 @@
 package com.ticketapp.sfmoviehouse.entity;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Entity
 @Table (name = "movies")
 public class Movie {
@@ -19,7 +22,7 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(Long movieID, String title, String year, String category, String summary, String description, List<Ticket> tickets) {
+    public Movie(Long movieID, String title, String year, String category, String summary, String description) {
         this.movieID = movieID;
         this.title = title;
         this.year = year;
