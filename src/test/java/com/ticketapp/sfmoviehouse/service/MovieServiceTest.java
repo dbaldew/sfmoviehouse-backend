@@ -23,15 +23,11 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class MovieServiceTest {
 
-    @Mock
-    private MovieRepository movieRepository;
-
     @InjectMocks
     private MovieService movieService;
-
     @Mock
+    private MovieRepository movieRepository;
     private Movie movie;
-
 
     @BeforeEach
     void setUp() {

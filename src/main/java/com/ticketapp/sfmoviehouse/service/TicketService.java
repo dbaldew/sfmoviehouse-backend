@@ -35,7 +35,7 @@ public class TicketService {
 
     public List<TicketDTO> findAllTicketsByUser (String username){
         User user = userRepository.getById(username);
-        List<Ticket> userTicketList = ticketRepository.findTicketsByUser(user);
+        List<Ticket> userTicketList = ticketRepository.findTicketsByUser(username);
         List<TicketDTO> userTicketDTOList = userTicketList.stream().map(TicketDTO::fromTicket)
                 .collect(Collectors.toList());
         return userTicketDTOList;

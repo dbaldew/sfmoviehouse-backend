@@ -1,10 +1,13 @@
 package com.ticketapp.sfmoviehouse.entity;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Builder
 @Entity
 @Table(name = "users")
 public class User {
@@ -26,11 +29,17 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, boolean enabled, Set<Authority> authorities, List<Ticket> tickets) {
+    public User(String username, String password, boolean enabled, Set<Authority> authorities) {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
         this.authorities = authorities;
+    }
+
+    public User(String username, String password, boolean enabled) {
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
     }
 
     public String getUsername() {

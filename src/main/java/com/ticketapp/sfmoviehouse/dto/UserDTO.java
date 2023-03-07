@@ -1,13 +1,18 @@
 package com.ticketapp.sfmoviehouse.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import java.util.Set;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDTO {
         private String username;
         private String password;
         private Set<String> authorities;
-
-    public UserDTO(){}
 
     public String getUsername() {
         return username;
