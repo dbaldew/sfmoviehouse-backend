@@ -2,9 +2,7 @@ package com.ticketapp.sfmoviehouse.service;
 
 import com.ticketapp.sfmoviehouse.dto.MovieDTO;
 import com.ticketapp.sfmoviehouse.entity.Movie;
-import com.ticketapp.sfmoviehouse.entity.Ticket;
 import com.ticketapp.sfmoviehouse.repository.MovieRepository;
-import com.ticketapp.sfmoviehouse.repository.TicketRepository;
 import org.assertj.core.api.Assertions;
 import org.h2.engine.Database;
 
@@ -85,7 +83,7 @@ public class MovieServiceTest {
     }
 
     @Test
-    void findAllMoviesByTitle() {
+    void shouldReturnAllMoviesByTitle() {
         Movie movie = Movie.builder()
                 .movieID(1L)
                 .description("descr")
@@ -115,13 +113,66 @@ public class MovieServiceTest {
         Assertions.assertThat(actual.size()).isEqualTo(movies.size());
     }
 
-
     @Test
-    void findAllMoviesByYear() {
+    void shouldReturnAllMoviesByYear() {
+        Movie movie = Movie.builder()
+                .movieID(1L)
+                .description("descr")
+                .title("title")
+                .summary("summary")
+                .year("year")
+                .category("category")
+                .build();
+
+        MovieDTO movieDTO = MovieDTO.builder()
+                .movieID(1L)
+                .description("descr")
+                .title("title")
+                .summary("summary")
+                .year("year")
+                .category("category")
+                .build();
+
+        List<Movie> movies = new ArrayList<>();
+        movies.add(movie);
+
+        Mockito
+                .when(movieRepository.findAllByYear("year"))
+                .thenReturn(movies);
+
+        var actual = movieService.findAllMoviesByYear("year");
+        Assertions.assertThat(actual.size()).isEqualTo(movies.size());
     }
 
     @Test
     void findAllMoviesByCategory() {
+        Movie movie = Movie.builder()
+                .movieID(1L)
+                .description("descr")
+                .title("title")
+                .summary("summary")
+                .year("year")
+                .category("category")
+                .build();
+
+        MovieDTO movieDTO = MovieDTO.builder()
+                .movieID(1L)
+                .description("descr")
+                .title("title")
+                .summary("summary")
+                .year("year")
+                .category("category")
+                .build();
+
+        List<Movie> movies = new ArrayList<>();
+        movies.add(movie);
+
+        Mockito
+                .when(movieRepository.findAllByCategory("category"))
+                .thenReturn(movies);
+
+        var actual = movieService.findAllMoviesByCategory("category");
+        Assertions.assertThat(actual.size()).isEqualTo(movies.size());
     }
 
     @Test
@@ -183,6 +234,7 @@ public class MovieServiceTest {
 
     @Test
     void updateMovie() {
+
 
     }
 
