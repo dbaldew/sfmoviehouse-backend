@@ -41,7 +41,7 @@ public class MovieServiceTest {
     Database databaseMock;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         movie = new Movie();
         movie.setMovieID(1L);
         movie.setCategory("horror");
@@ -74,12 +74,11 @@ public class MovieServiceTest {
         List<Movie> movies = new ArrayList<>();
         movies.add(movie);
 
-        Mockito
-                .when(movieRepository.findAll())
+        when(movieRepository.findAll())
                 .thenReturn(movies);
 
         var actual = movieService.findAllMovies();
-       Assertions.assertThat(actual.size()).isEqualTo(movies.size());
+        Assertions.assertThat(actual.size()).isEqualTo(movies.size());
     }
 
     @Test
@@ -105,8 +104,8 @@ public class MovieServiceTest {
         List<Movie> movies = new ArrayList<>();
         movies.add(movie);
 
-        Mockito
-                .when(movieRepository.findAllByTitle("title"))
+
+        when(movieRepository.findAllByTitle("title"))
                 .thenReturn(movies);
 
         var actual = movieService.findAllMoviesByTitle("title");
@@ -136,8 +135,8 @@ public class MovieServiceTest {
         List<Movie> movies = new ArrayList<>();
         movies.add(movie);
 
-        Mockito
-                .when(movieRepository.findAllByYear("year"))
+
+        when(movieRepository.findAllByYear("year"))
                 .thenReturn(movies);
 
         var actual = movieService.findAllMoviesByYear("year");
@@ -145,7 +144,7 @@ public class MovieServiceTest {
     }
 
     @Test
-    void findAllMoviesByCategory() {
+    void shouldReturnAllMoviesByCategory() {
         Movie movie = Movie.builder()
                 .movieID(1L)
                 .description("descr")
@@ -167,8 +166,8 @@ public class MovieServiceTest {
         List<Movie> movies = new ArrayList<>();
         movies.add(movie);
 
-        Mockito
-                .when(movieRepository.findAllByCategory("category"))
+
+        when(movieRepository.findAllByCategory("category"))
                 .thenReturn(movies);
 
         var actual = movieService.findAllMoviesByCategory("category");
@@ -195,8 +194,8 @@ public class MovieServiceTest {
                 .category("category")
                 .build();
 
-        Mockito
-                .when(movieRepository.findById(1L))
+
+        when(movieRepository.findById(1L))
                 .thenReturn(Optional.ofNullable(movie));
 
         var actual = movieService.findMovieById(1L);
@@ -234,8 +233,31 @@ public class MovieServiceTest {
 
     @Test
     void updateMovie() {
+        Movie movie = Movie.builder()
+                .movieID(1L)
+                .description("descr")
+                .title("title")
+                .summary("summary")
+                .year("year")
+                .category("category")
+                .build();
 
+        MovieDTO movieDTO = MovieDTO.builder()
+                .movieID(1L)
+                .description("descr")
+                .title("title")
+                .summary("summary")
+                .year("year")
+                .category("category")
+                .build();
 
+        when(movieRepository.findById(1L))
+                .thenReturn(Optional.ofNullable(movie));
+        when(movieRepository.save(Mockito.any(Movie.class)))
+                .thenReturn(movie);
+
+        MovieDTO savedMovie = movieService.updateMovie(1L,movieDTO);
+        Assertions.assertThat(savedMovie).isNotNull();
     }
 
     @Test
