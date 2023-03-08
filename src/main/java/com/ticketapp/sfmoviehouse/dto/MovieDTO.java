@@ -17,6 +17,7 @@ public class MovieDTO {
     public String summary;
     public String description;
 
+
     public Long getMovieID() {
         return movieID;
     }

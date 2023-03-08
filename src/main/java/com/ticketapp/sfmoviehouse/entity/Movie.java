@@ -1,11 +1,7 @@
 package com.ticketapp.sfmoviehouse.entity;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import lombok.Builder;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Builder
 @Entity
@@ -19,21 +15,17 @@ public class Movie {
     private String category;
     private String summary;
     private String description;
-    @OneToOne
-    @JoinColumn(name = "image", referencedColumnName = "name")
-    private File image;
 
     public Movie() {
     }
 
-    public Movie(Long movieID, String title, String year, String category, String summary, String description, File image) {
+    public Movie(Long movieID, String title, String year, String category, String summary, String description) {
         this.movieID = movieID;
         this.title = title;
         this.year = year;
         this.category = category;
         this.summary = summary;
         this.description = description;
-        this.image = image;
     }
 
     public Long getMovieID() {
@@ -84,12 +76,5 @@ public class Movie {
         this.description = description;
     }
 
-    public File getImage() {
-        return image;
-    }
-
-    public void setImage(File image) {
-        this.image = image;
-    }
 }
 

@@ -66,5 +66,4 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new FileResponseMessage(message));
         }
     }
-
 }

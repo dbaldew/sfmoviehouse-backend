@@ -1,7 +1,6 @@
 package com.ticketapp.sfmoviehouse.controller;
 
 import com.ticketapp.sfmoviehouse.dto.MovieDTO;
-import com.ticketapp.sfmoviehouse.entity.Movie;
 import com.ticketapp.sfmoviehouse.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -67,7 +66,4 @@ public class MovieController {
         movieService.deleteById(id);
         return ResponseEntity.ok("removed movie ");
     }
-
-
-
 }
