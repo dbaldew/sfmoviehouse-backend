@@ -145,7 +145,7 @@ public class MovieServiceTest {
     }
 
     @Test
-    void shouldSaveAMovieToDatabase() {
+    void shouldSaveMovieToDatabase() {
         Movie movie = Movie.builder()
                 .movieID(1L)
                 .description("descr")
@@ -172,7 +172,7 @@ public class MovieServiceTest {
     }
 
     @Test
-    void updateMovie() {
+    void shouldUpdateMovie() {
         Movie movie = Movie.builder()
                 .movieID(1L)
                 .description("descr")
