@@ -7,25 +7,26 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.Optional;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class MovieServiceTest {
+class MovieServiceTest {
 
-    @InjectMocks
-    private MovieService movieService;
     @Mock
     private MovieRepository movieRepository;
+    @Mock
     private Movie movie;
-
+    @InjectMocks
+    private MovieService movieService;
+    @Captor
+    ArgumentCaptor<Movie> movieArgumentCaptor;
 
     @BeforeEach
     void setUp() {
@@ -40,14 +41,6 @@ public class MovieServiceTest {
 
     @Test
     void shouldReturnAllMovies() {
-        Movie movie = Movie.builder()
-                .movieID(1L)
-                .description("descr")
-                .title("title")
-                .summary("summary")
-                .year("year")
-                .category("category")
-                .build();
 
         List<Movie> movies = new ArrayList<>();
         movies.add(movie);
@@ -56,89 +49,66 @@ public class MovieServiceTest {
                 .thenReturn(movies);
 
         var actual = movieService.findAllMovies();
+        verify(movieRepository, times(1)).findAll();
+
         Assertions.assertThat(actual.size()).isEqualTo(movies.size());
+        Assertions.assertThat(actual.get(0).getMovieID()).isEqualTo(1L);
+
     }
 
     @Test
     void shouldReturnAllMoviesByTitle() {
-        Movie movie = Movie.builder()
-                .movieID(1L)
-                .description("descr")
-                .title("title")
-                .summary("summary")
-                .year("year")
-                .category("category")
-                .build();
-
 
         List<Movie> movies = new ArrayList<>();
         movies.add(movie);
 
-        when(movieRepository.findAllByTitle("title"))
+        when(movieRepository.findAllByTitle("Jaws"))
                 .thenReturn(movies);
 
-        var actual = movieService.findAllMoviesByTitle("title");
-        Assertions.assertThat(actual.size()).isEqualTo(movies.size());
+        var actual = movieService.findAllMoviesByTitle("Jaws");
+        verify(movieRepository, times(1)).findAllByTitle("Jaws");
+
+        Assertions.assertThat(actual.get(0).getTitle()).isEqualTo("Jaws");
     }
 
     @Test
     void shouldReturnAllMoviesByYear() {
-        Movie movie = Movie.builder()
-                .movieID(1L)
-                .description("descr")
-                .title("title")
-                .summary("summary")
-                .year("year")
-                .category("category")
-                .build();
-
 
         List<Movie> movies = new ArrayList<>();
         movies.add(movie);
 
-        when(movieRepository.findAllByYear("year"))
+        when(movieRepository.findAllByYear("1979"))
                 .thenReturn(movies);
 
-        var actual = movieService.findAllMoviesByYear("year");
-        Assertions.assertThat(actual.size()).isEqualTo(movies.size());
+        var actual = movieService.findAllMoviesByYear("1979");
+        verify(movieRepository, times(1)).findAllByYear("1979");
+
+        Assertions.assertThat(actual.get(0).getYear()).isEqualTo("1979");
     }
 
     @Test
     void shouldReturnAllMoviesByCategory() {
-        Movie movie = Movie.builder()
-                .movieID(1L)
-                .description("descr")
-                .title("title")
-                .summary("summary")
-                .year("year")
-                .category("category")
-                .build();
 
         List<Movie> movies = new ArrayList<>();
         movies.add(movie);
 
-        when(movieRepository.findAllByCategory("category"))
+        when(movieRepository.findAllByCategory("horror"))
                 .thenReturn(movies);
 
-        var actual = movieService.findAllMoviesByCategory("category");
-        Assertions.assertThat(actual.size()).isEqualTo(movies.size());
+        var actual = movieService.findAllMoviesByCategory("horror");
+        verify(movieRepository, times(1)).findAllByCategory("horror");
+
+        Assertions.assertThat(actual.get(0).getCategory()).isEqualTo("horror");
     }
 
     @Test
     void shouldReturnMovieById() {
-        Movie testMovie = Movie.builder()
-                .movieID(1L)
-                .description("descr")
-                .title("title")
-                .summary("summary")
-                .year("year")
-                .category("category")
-                .build();
 
         when(movieRepository.findById(1L))
-                .thenReturn(Optional.ofNullable(movie));
+                .thenReturn(Optional.of(movie));
 
         var actual = movieService.findMovieById(1L);
+        verify(movieRepository, times(1)).findById(1L);
 
         Assertions.assertThat(actual.movieID).isEqualTo(movie.getMovieID());
 
@@ -146,58 +116,32 @@ public class MovieServiceTest {
 
     @Test
     void shouldSaveMovieToDatabase() {
-        Movie movie = Movie.builder()
-                .movieID(1L)
-                .description("descr")
-                .title("title")
-                .summary("summary")
-                .year("year")
-                .category("category")
-                .build();
 
-        MovieDTO movieDTO = MovieDTO.builder()
-                .movieID(1L)
-                .description("descr")
-                .title("title")
-                .summary("summary")
-                .year("year")
-                .category("category")
-                .build();
+        movieRepository.save(movie);
 
-        when(movieRepository.save(Mockito.any(Movie.class)))
-                .thenReturn(movie);
+        verify(movieRepository, times(1)).save(movieArgumentCaptor.capture());
+        var actual = movieArgumentCaptor.getValue();
 
-        MovieDTO savedMovie = movieService.save(movieDTO);
-        Assertions.assertThat(savedMovie).isNotNull();
+        Assertions.assertThat(actual.getMovieID()).isEqualTo(movie.getMovieID());
+        Assertions.assertThat(actual.getTitle()).isEqualTo(movie.getTitle());
     }
 
     @Test
     void shouldUpdateMovie() {
-        Movie movie = Movie.builder()
-                .movieID(1L)
-                .description("descr")
-                .title("title")
-                .summary("summary")
-                .year("year")
-                .category("category")
-                .build();
 
-        MovieDTO movieDTO = MovieDTO.builder()
-                .movieID(1L)
-                .description("descr")
-                .title("title")
-                .summary("summary")
-                .year("year")
-                .category("category")
-                .build();
+        Movie movieUpdate = new Movie();
+        movieUpdate.setCategory("sf comedy");
+        movieUpdate.setDescription("sf comedy");
+        movieUpdate.setYear("1996");
+        movieUpdate.setSummary("Mars Attacks");
+        movieUpdate.setTitle("mars attacks");
 
-        when(movieRepository.findById(1L))
-                .thenReturn(Optional.ofNullable(movie));
-        when(movieRepository.save(Mockito.any(Movie.class)))
-                .thenReturn(movie);
+        when(movieRepository.findById(anyLong()))
+                .thenReturn(Optional.of(movie));
 
-        MovieDTO savedMovie = movieService.updateMovie(1L,movieDTO);
-        Assertions.assertThat(savedMovie).isNotNull();
+        var actual = movieService.updateMovie(1L, MovieDTO.fromMovie(movieUpdate));
+        Assertions.assertThat(actual.getCategory()).isEqualTo(movie.getCategory());
+        Assertions.assertThat((actual.getTitle())).isEqualTo(movie.getTitle());
     }
 
     @Test
