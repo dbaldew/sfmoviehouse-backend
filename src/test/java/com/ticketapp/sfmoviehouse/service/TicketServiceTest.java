@@ -31,8 +31,6 @@ class TicketServiceTest {
     @Mock
     Ticket ticket;
     @Mock
-    TicketDTO ticketDTO;
-    @Mock
     Movie movie;
     @Mock
     User user;
