@@ -39,7 +39,7 @@ class TicketServiceTest {
     @InjectMocks
     private TicketService ticketService;
     @Captor
-    ArgumentCaptor<Ticket> ticketCaptor;
+    ArgumentCaptor<Ticket> ticketArgumentCaptor;
     @BeforeEach
     void setUp(){
         ticket = new Ticket();
@@ -70,7 +70,6 @@ class TicketServiceTest {
                 .thenReturn(tickets);
 
         var actual = ticketService.findAllTickets();
-
         verify(ticketRepository, times(1)).findAll();
 
         Assertions.assertThat(actual.size()).isEqualTo(tickets.size());
@@ -92,7 +91,6 @@ class TicketServiceTest {
         Assertions.assertThat(actual.get(0).getTicketID()).isEqualTo(1L);
 
     }
-
     @Test
     void shouldReturnAllTicketsByMovieID() {
 
@@ -110,7 +108,6 @@ class TicketServiceTest {
         Assertions.assertThat(actual.get(0).getTicketID()).isEqualTo(1L);
 
     }
-
     @Test
     void shouldFindTicketById() {
 
@@ -128,13 +125,12 @@ class TicketServiceTest {
 
         ticketRepository.save(ticket);
 
-        verify(ticketRepository, times(1)).save(ticketCaptor.capture());
-        var actual = ticketCaptor.getValue();
+        verify(ticketRepository, times(1)).save(ticketArgumentCaptor.capture());
+        var actual = ticketArgumentCaptor.getValue();
 
         Assertions.assertThat(actual.getTicketID()).isEqualTo(ticket.getTicketID());
 
     }
-
     @Test
     void updateTicket() {
 
@@ -146,14 +142,14 @@ class TicketServiceTest {
         ticketUpdate.setMovie(movie);
         ticketUpdate.setUser(user);
 
-        when(ticketRepository.findById(anyLong())).thenReturn(Optional.of(ticketUpdate));
+        when(ticketRepository.findById(anyLong()))
+                .thenReturn(Optional.of(ticket));
 
         var actual = ticketService.updateTicket(1L, TicketDTO.fromTicket(ticket));
         Assertions.assertThat(actual.getTicketID()).isEqualTo(ticket.getTicketID());
         Assertions.assertThat(actual.getDate()).isEqualTo(ticket.getDate());
 
     }
-
     @Test
     void deleteById() {
         ticketRepository.deleteById(1L);
