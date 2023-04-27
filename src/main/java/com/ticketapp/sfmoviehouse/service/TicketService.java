@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class TicketService {
+public class  TicketService {
     private final TicketRepository ticketRepository;
     private final MovieRepository movieRepository;
     private final UserRepository userRepository;

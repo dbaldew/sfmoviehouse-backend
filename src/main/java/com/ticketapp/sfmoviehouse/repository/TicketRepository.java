@@ -15,4 +15,5 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     List<Ticket> findTicketsByUser(String username);
     List <Ticket> findTicketsByMovie(Movie movieID);
+
 }
